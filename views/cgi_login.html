@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<!-- <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.2/jquery.mobile.min.css"> -->
+		<script src="/static/js/jquery-1.11.3.min.js"></script>
+		<!-- <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script> -->
+		
+		<script src="/static/js/cgi_login.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<!-- <form ACTION='http://10.0.0.250/cgi-bin/login.exe' method='GET'> -->
+		<form action="#" method="GET" id="form_login">
+			<div data-role="fieldcontain">
+			<label for="user">Name:</label>
+			<input type="text" name="user" id="user"/>
+			
+			<label for="pwd">Password:</label>
+			<input type="password" name="pwd" id="pwd"/>
+			</div>
+			<input type="submit" data-inline="true" value="提交" id="login_submit">
+		</form>
+		<p id="description"> </p>
+	</body>
+</html>
