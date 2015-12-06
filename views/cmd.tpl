@@ -1,5 +1,5 @@
 Content-type:application/json
 
 
-{"{{.command}}":"{{.value}}"}
+{"{{.command1}}":{{.value1}}}
 
