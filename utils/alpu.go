@@ -153,9 +153,9 @@ func PrintAlpuCipherText() {
 
 func IsPassedAuth() bool {
 	err := C.decode()
-	PrintOrigRandom()
-	PrintAlpuPlainText()
-	PrintAlpuCipherText()
+	//PrintOrigRandom()
+	//PrintAlpuPlainText()
+	//PrintAlpuCipherText()
 
 	fmt.Println("IsPassedAuth", err)
 	if err == 0 {

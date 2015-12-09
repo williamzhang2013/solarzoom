@@ -1,0 +1,271 @@
+{	"StyleCode":["SB","GOODW","A8081"],
+	"StyleVersion":"V01.03.1",
+	"CreateDate":"2015.09.24",
+	
+	"Probe":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[1],
+			"_FunctionCode":[2],
+			"_DataLen":[0]
+			},
+		"Response":{
+			"Response_Len":73,
+
+			"ExpectedDataPointer_Len":22,
+			"ExpectedData_Len":6,
+			"ExpectedData":[71,79,79,68,87,69],
+
+			"SNPointer_Len":38,
+			"SN_Len":16,
+
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+		},
+	"OfflineQuery":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"_OffLineAddr":[127],
+			"_ControlCode":[0],
+			"_FunctionCode":[0],
+			"_DataLen":[0]
+			},
+		"Response":{ 
+			"Response_Len":25,
+
+			"ExpectedDataPointer_Len":null,
+			"ExpectedData_Len":null,
+			"ExpectedData":null,
+
+			"SNPointer_Len":7,
+			"SN_Len":16,
+
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+		},
+	"AddrAssign":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_ControlCode","_FunctionCode","_DataLen","SN_Len","DAddr_Len","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"_OffLineAddr":[127],
+			"_ControlCode":[0],
+			"_FunctionCode":[1],
+			"_DataLen":[17],
+			"SN_Len":16,
+			"DAddr_Len":1
+			},
+		"Response":{
+			"Response_Len":9,
+
+			"ExpectedDataPointer_Len":4,
+			"ExpectedData_Len":2,
+			"ExpectedData":[0,129],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+		},
+
+	"_LogOff":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[0],
+			"_FunctionCode":[2],
+			"_DataLen":[0]
+			},
+		"Response":{
+			"Response_Len":9,
+
+			"ExpectedDataPointer_Len":4,
+			"ExpectedData_Len":2,
+			"ExpectedData":[0,130],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+		},
+	"_PowerOn":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[3],
+			"_FunctionCode":[27],
+			"_DataLen":[0]
+			},
+		"Response":{
+			"Response_Len":10,
+
+			"ExpectedDataPointer_Len":7,
+			"ExpectedData_Len":1,
+			"ExpectedData":[6],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":7,
+			"FailChkData_Len":1,
+			"FailChkData":[21]
+		}
+		},
+	"_PowerOff":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[3],
+			"_FunctionCode":[28],
+			"_DataLen":[0]
+			},
+		"Response":{
+			"Response_Len":10,
+
+			"ExpectedDataPointer_Len":7,
+			"ExpectedData_Len":1,
+			"ExpectedData":[6],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":7,
+			"FailChkData_Len":1,
+			"FailChkData":[21]
+		}
+		},
+	"_PowerReboot":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[3],
+			"_FunctionCode":[29],
+			"_DataLen":[0]
+			},
+		"Response":{
+			"Response_Len":10,
+
+			"ExpectedDataPointer_Len":7,
+			"ExpectedData_Len":1,
+			"ExpectedData":[6],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":7,
+			"FailChkData_Len":1,
+			"FailChkData":[21]
+		}
+		},	
+	"_SetSystemTime":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","_SystemDateTime","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[3],
+			"_FunctionCode":[2],
+			"_SystemDateTime":["SystemtimeYear","SystemtimeMonth","SystemtimeDay","SystemtimeHour","SystemtimeMinute","SystemtimeSecond"]		
+			},
+		"Response":{
+			"Response_Len":10,
+
+			"ExpectedDataPointer_Len":7,
+			"ExpectedData_Len":1,
+			"ExpectedData":[6],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":7,
+			"FailChkData_Len":1,
+			"FailChkData":[21]
+		}
+		},
+	"_SetSaftyCountry":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","_SaftyCountry","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_ControlCode":[3],
+			"_FunctionCode":[2],
+			"_SaftyCountry":[11]		
+			},
+		"Response":{
+			"Response_Len":10,
+
+			"ExpectedDataPointer_Len":7,
+			"ExpectedData_Len":1,
+			"ExpectedData":[6],
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":7,
+			"FailChkData_Len":1,
+			"FailChkData":[21]
+		}
+		},
+
+	"_ReadDataCommandA":{
+		"Command":{
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"_Head":[170,85],
+			"_GWAddr":[177],
+			"DAddr_Len":1,
+			"_FunctionCode":[1,0],
+			"_DataLen":[0]
+			},
+		"Response":{		
+			"Response_Len":103,
+
+			"ExpectedDataPointer_Len":null,
+			"ExpectedData_Len":null,
+			"ExpectedData":null,
+
+			"SNPointer_Len":null,
+			"SN_Len":null,
+
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+		},
+
+	"BATCH":[
+		{	"CmdRsltTblName":"GW001",
+			"CmdOrder":["_ReadDataCommandA"],
+			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
+			"RecycleTime":300
+			},
+		{	"CmdRsltTblName":"TRPuls",
+			"CmdOrder":["_SetSaftyCountry"],
+			"RsltOrder":null,
+			"RecycleTime":430
+		}
+	]
+}

@@ -66,11 +66,15 @@ func init() {
 	orm.RegisterModel(new(PvInverterRunData))
 }
 
-func AddInverterRunData(record PvInverterRunData) (int64, error) {
+func NewPvInverterRunData() *PvInverterRunData {
+	return &PvInverterRunData{}
+}
+
+func AddInverterRunData(record *PvInverterRunData) (int64, error) {
 	o := orm.NewOrm()
 	record.InputTime = time.Now().Unix()
 
-	id, err := o.Insert(&record)
+	id, err := o.Insert(record)
 	return id, err
 }
 

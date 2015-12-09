@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/session"
 	"solarzoom/utils"
+	// "solarzoom/utils/ucmd"
 	"strconv"
 )
 
@@ -12,7 +13,7 @@ import (
 // none --- nothing happens
 // sn --- get sn
 // ok --- passed auth
-const SessAuth string = "auth"
+//const SessAuth string = "auth"
 const URLAuth string = "/gw/auth"
 
 const snlength int = 16
@@ -36,7 +37,7 @@ func getChipSNAtString(src string) error {
 	length := len(src)
 	for i := 0; i < length; i += 2 {
 		var s string = string(src[i]) + string(src[i+1])
-		fmt.Println("getChipSNAtString:", s)
+		//fmt.Println("getChipSNAtString:", s)
 		if data, err := strconv.ParseInt(s, 16, 16); err == nil {
 			ChipSN[i/2] = uint8(data)
 			//fmt.Printf("ChipSN[%d]=0x%x\n", i/2, ChipSN[i/2])
@@ -71,7 +72,8 @@ func DoSetSN(sn string, sess session.SessionStore) {
 		if err := getChipSNAtString(sn); err == nil {
 			utils.SetChipSNArrayItem(ChipSN)
 			utils.PrintChipSN()
-			sess.Set(SessAuth, "sn")
+			sess.Set(utils.SessAuth, "sn")
+			utils.UpdateSolarMapItem(utils.SessAuth, "sn")
 		}
 	}
 }
@@ -81,7 +83,7 @@ func DoSetCipher(cipher string, sess session.SessionStore) {
 		// cipher works
 		if err := getCipherTextAtString(cipher); err == nil {
 			utils.SetChipCipherArrayItem(ChipCipherText)
-			utils.PrintAlpuCipherText()
+			//utils.PrintAlpuCipherText()
 			DoAuth(sess)
 		}
 	}
@@ -89,18 +91,22 @@ func DoSetCipher(cipher string, sess session.SessionStore) {
 
 func DoAuth(sess session.SessionStore) {
 	if utils.IsPassedAuth() {
-		sess.Set(SessAuth, "ok")
+		sess.Set(utils.SessAuth, "ok")
+		utils.UpdateSolarMapItem(utils.SessAuth, "ok")
 		fmt.Println("AUTH OK!")
 	} else {
-		sess.Set(SessAuth, "none")
+		sess.Set(utils.SessAuth, "none")
+		utils.UpdateSolarMapItem(utils.SessAuth, "none")
 	}
 }
 
 func handleAuthOKState(ctrl *AuthController, sess session.SessionStore) {
-	ctrl.Data["command1"] = "errcode"
-	ctrl.Data["value1"] = 0
+	ctrl.Data["command1"] = "cmd"
+	ctrl.Data["value1"] = "cipher"
+	ctrl.Data["command2"] = "errcode"
+	ctrl.Data["value2"] = 0
 
-	ctrl.TplNames = "cmd.tpl"		
+	ctrl.TplNames = "cmd2.tpl"
 	fmt.Println("Auth OK!")
 }
 
@@ -110,21 +116,26 @@ func handleAuthSNState(ctrl *AuthController, sess session.SessionStore) {
 	fmt.Println("cipher=", cipher)
 
 	if len(cipher) == 0 {
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 1
-		ctrl.TplNames = "cmd.tpl"		
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "cipher"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 1
+		ctrl.TplNames = "cmd2.tpl"
 	} else if len(cipher) != 32 {
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 2
-		ctrl.TplNames = "cmd.tpl"		
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "cipher"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 2
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		DoSetCipher(cipher, sess)
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 0
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "cipher"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 0
 
-		ctrl.TplNames = "cmd.tpl"		
+		ctrl.TplNames = "cmd2.tpl"
 	}
-	
 }
 
 func handleAuthInitState(ctrl *AuthController, sess session.SessionStore) {
@@ -133,28 +144,36 @@ func handleAuthInitState(ctrl *AuthController, sess session.SessionStore) {
 	fmt.Println("sn=", sn)
 
 	if len(sn) == 0 {
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 1
-		ctrl.TplNames = "cmd.tpl"
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "sn"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 1
+		ctrl.TplNames = "cmd2.tpl"
 	} else if len(sn) != 16 {
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 2
-		ctrl.TplNames = "cmd.tpl"
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "sn"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 2
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		DoSetSN(sn, sess)
-		ctrl.Data["command1"] = "errcode"
-		ctrl.Data["value1"] = 0
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "sn"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 0
 
-		ctrl.Data["command2"] = "ciphertext"
-		ctrl.Data["value2"] = "12345678123456781234567812345678"
-		ctrl.TplNames = "cmd2.tpl"
-	}	
+		ctrl.Data["command3"] = "ciphertext"
+		ctrl.Data["value3"] = "12345678123456781234567812345678"
+		ctrl.TplNames = "cmd3.tpl"
+	}
 }
 
 func handleAuthRequest(ctrl *AuthController) {
 	sess := ctrl.StartSession()
-	state := sess.Get(SessAuth)	
+	state := sess.Get(utils.SessAuth)
+	//state := utils.GetSolarMapItem(utils.SessAuth)
 
+	fmt.Println("current state=", state)
 	switch state {
 	case "ok":
 		handleAuthOKState(ctrl, sess)
@@ -164,6 +183,7 @@ func handleAuthRequest(ctrl *AuthController) {
 		handleAuthInitState(ctrl, sess)
 	}
 }
+
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
