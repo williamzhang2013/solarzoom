@@ -1,14 +1,13 @@
 {	"StyleCode":["SB","SHOUH","TLS01"],
-	"StyleVersion":"V01.03.1",
+	"StyleVersion":"V01.03.2",
 	"CreateDate":"2015.09.24",
-	
 	"Probe":{
 		"Command":{
 			"Code_Order":["DAddr_Len","_FunctionCode","_ProbeAddr","_ProbeDataLen","CRCL","CRCH"],
 			"DAddr_Len":1,	
 			"_FunctionCode":[33],
 			"_ProbeAddr":[32,1],
-			"_ProbeDataLen":[0,7],
+			"_ProbeDataLen":[0,7]
 		},
 		"Response":{
 			"Response_Len":null,
@@ -21,14 +20,11 @@
 
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
-			"FailChkData":null,
+			"FailChkData":null
 		}
 	},
-
 	"OfflineQuery":null,
-
 	"AddrAssign":null,
-
 	"_PowerOff":{
 		"Command":{
 			"Code_Order":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOffCode","CRCL","CRCH"],
@@ -50,7 +46,6 @@
 			"FailChkData":null
 		}
 	},
-
 	"_PowerOn":{
 		"Command":{
 			"Code_Order":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOnCode","CRCL","CRCH"],
@@ -72,7 +67,6 @@
 			"FailChkData":null
 		}
 	},
-
 	"_ReadDataCommand":{	
 		"Command":{
 			"Code_Order":["DAddr_Len","_FunctionCode","_ReadAddr","_RdWordsNmbr","CRCL","CRCH"],
@@ -86,19 +80,16 @@
 			"ExpectedDataPointer_Len":null,
 			"ExpectedData_Len":null,
 			"ExpectedData":null,
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
 	},
-	
 	"BATCH":[
-		{	"CommandTableName":"SH001",
-			"CommandOrder":["_ReadDataCommand",],
+		{	"CmdRsltTblName":"SH001",
+			"CmdOrder":["_ReadDataCommand"],
 			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
 			"RecycleTime":300
 		}

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	//"math"
 )
@@ -148,4 +149,11 @@ func SolarzoomDelay(t int64) float64 {
 		s *= float64(i)
 	}
 	return s
+}
+
+///////////////////////////////////////////////////////////////////////////////
+func IsFileExist(name string) bool {
+	fmt.Println("name=", name)
+	_, err := os.Stat(name)
+	return err == nil || os.IsExist(err)
 }

@@ -5,7 +5,7 @@
 
 	"Data":{
 		"GW001":{
-			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","_DataHead","VdcPV1","VdcPV2","IdcPV1","IdcPV2","VacR","VacS","VacT","IacR","IacS","IacT","FacR","FacS","FacT","ACActivePowerTotal","_WorkStatus","InternalTemperature","_ErroMSGH","_ErroMSGL","_EnergyTotalH","_EnergyTotalL","_RunTimeTotalH","_RunTimeTotalL","_ErroMSG1","EnergyDay","_UnrelatedData","_DataCheckSum","CRCL","CRCH"],	
+			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","_DataHead","VdcPV1","VdcPV2","IdcPV1","IdcPV2","VacR","VacS","VacT","IacR","IacS","IacT","FacR","FacS","FacT","ACActivePowerTotal","_WorkStatus","InternalTemperature","_ErroMSGH","_ErroMSG1","EnergyTotal","RunTimeTotal","_ErroMSG2","EnergyDay","_NA","_DataCheckSum","CRCL","CRCH"],	
 			"DVCSN_Len":{"Len":16},
 
 			"_DataHead":{"Len":7},		
@@ -23,17 +23,14 @@
 			"FacS":{"Len":2,"Digit":0.01},
 			"FacT":{"Len":2,"Digit":0.01},
 			"ACActivePowerTotal":{"Len":2,"Digit":1},
-			"_WorkStatus":{"Len":2},
+			"_WorkStatus":{"Len":2,"Digit":1},
 			"InternalTemperature":{"Len":2,"Digit":0.1},
-			"_ErroMSGH":{"Len":2},
-			"_ErroMSGL":{"Len":2},
-			"_EnergyTotalH":{"Len":2},
-			"_EnergyTotalL":{"Len":2},
-			"_RunTimeTotalH":{"Len":2},
-			"_RunTimeTotalL":{"Len":2},
-			"_ErroMSG1":{"Len":20},
+			"_ErroMSG1":{"Len":4},
+			"EnergyTotal":{"Len":4,"Digit":0.1},
+			"RunTimeTotal":{"Len":2,"Digit":1},
+			"_ErroMSG2":{"Len":20},
 			"EnergyDay":{"Len":2,"Digit":0.1},
-			"_UnrelatedData":{"Len":28},
+			"_NA":{"Len":28},
 			"_DataCheckSum":{"Len":2}
 		}
 		},
@@ -41,29 +38,16 @@
 	"CheckCmd":{
 		"_FailCheck1":{
 			"Check":["_WorkStatus",2],
-			"ErroMessage":["_ErroMSGH","_ErroMSGL","_ErroMSG1"],
+			"ErroMessage":["_ErroMSG1","_ErroMSG2"],
 			"WorkStatus":"Fault"
 			},
 		"_FailCheck2":{
 			"Check":["_WorkStatus",3],
-			"ErroMessage":["_ErroMSGH","_ErroMSGL","_ErroMSG1"],
+			"ErroMessage":["_ErroMSG1","_ErroMSG2"],
 			"WorkStatus":"Fault"
 		}
 		},
-
-	"EnergyTotal":{
-		"Function":"H_L",
-		"H":"_EnergyTotalH",
-		"L":"_EnergyTotalL",
-		"Digit":0.1
-		},
 	
-	"RunTimeTotal":{
-		"Function":"H_L",
-		"H":"_RunTimeTotalH",
-		"L":"_RunTimeTotalL",
-		"Digit":1
-		},
 	"DCPowerPV1":{
 		"Function":"Multiply",
 		"Items":["VdcPV1","IdcPV1"],

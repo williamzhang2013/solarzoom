@@ -5,11 +5,11 @@
 
 	"Data":{
 		"SH001":{
-			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","__DataHead","_WorkStatus","_ErroMSG","VdcPV1","IdcPV1","VdcPV2","IdcPV2","DCPowerPV1","DCPowerPV2","ACActivePowerTotal","__ACReactivePowerTotal","Fgrid","VacR","IacR","VacS","IacS","VacT","IacT","_EnergyTotalH","_EnergyTotalL","_RunTimeTotalH","_RunTimeTotalL","EnergyDay","__RunTimeDay","InternalTemperature","__innerData","_WarningMSG","__InputMethod","_InnerMsg","GFCIResistorPV1","GFCIResistorPV2","__DataCRC","CRCL","CRCH"],
+			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","__DataHead","_WorkStatus","_ErroMSG","VdcPV1","IdcPV1","VdcPV2","IdcPV2","DCPowerPV1","DCPowerPV2","ACActivePowerTotal","__ACReactivePowerTotal","Fgrid","VacR","IacR","VacS","IacS","VacT","IacT","EnergyTotal","RunTimeTotal","EnergyDay","__RunTimeDay","InternalTemperature","__innerData","_WarningMSG","__InputMethod","_InnerMsg","GFCIResistorPV1","GFCIResistorPV2","__DataCRC","CRCL","CRCH"],
 			"DVCSN_Len":{"Len":14},
 
 			"__DataHead":{"Len":3},
-			"_WorkStatus":{"Len":2},
+			"_WorkStatus":{"Len":2,"Digit":1},
 			"_ErroMSG":{"Len":10},
 			"VdcPV1":{"Len":2,"Digit":0.1},
 			"IdcPV1":{"Len":2,"Digit":0.01},
@@ -26,12 +26,10 @@
 			"IacS":{"Len":2,"Digit":0.01},
 			"VacT":{"Len":2,"Digit":0.1},
 			"IacT":{"Len":2,"Digit":0.01},
-			"_EnergyTotalH":{"Len":2},
-			"_EnergyTotalL":{"Len":2},
-			"_RunTimeTotalH":{"Len":2},
-			"_RunTimeTotalL":{"Len":2},
+			"EnergyTotal":{"Len":4,"Digit":1},
+			"RunTimeTotal":{"Len":4,"Digit":1},
 			"EnergyDay":{"Len":2,"Digit":0.01},
-			"__RunTimeDay":{"Len":2},
+			"__RunTimeDay":{"Len":2,"Digit":1},
 			"InternalTemperature":{"Len":2,"Digit":1},
 			"__innerData":{"Len":10},
 			"_WarningMSG":{"Len":2},
@@ -49,18 +47,6 @@
 			"ErroMessage":["_ErroMSG","_WarningMSG","_InnerMsg"],
 			"WorkStatus":"Fault"
 		}
-		},
-	"EnergyTotal":{
-		"Function":"H_L",
-		"H":"_EnergyTotalH",
-		"L":"_EnergyTotalL",
-		"Digit":1
-		},
-	"RunTimeTotal":{
-		"Function":"H_L",
-		"H":"_RunTimeTotalH",
-		"L":"_RunTimeTotalL",
-		"Digit":1
 		},
 	"DCPowerTotal":{
 		"Function":"Sum",

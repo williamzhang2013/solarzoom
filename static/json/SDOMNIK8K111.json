@@ -1,46 +1,57 @@
-{	"StyleCode":["SD","TRNGY","SP001"],
+{	"StyleCode":["SD","OMNIK","8K111"],		
 	"StyleVersion":"V01.03.1",
-	"CreateDate":"2015.10.20",
+	"CreateDate":"2015.12.03",
 	"NetworkStyle":"Multiple",
 
 	"Data":{
-		"TR001":{
-			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","_DataHead","InternalTemperature","EnergyDay","VdcPV1","VdcPV2","IdcPV1","IdcPV2","IacR","VacR","FacR","ACPwerR","_Zac","EnergyTotal","RunTimeTotal","_WorkMode","_FaultValue","_ErroMSG","_DataCheckSum","CRCL","CRCH"],
+		"OM001":{
+			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","_DataHead","VdcPV1","VdcPV2","__NA1","IdcPV1","IdcPV2","__NA2","IacR","__IacS","__IacT","VacR","__VacS","__VacT","Fgrid","ACPowerR","__ACPowerS","__ACPowerT","__NA3","EnergyDay","EnergyTotal","RunTimeTotal","_OperationMode","_ErroMessage","_DataCheckSum","CRCL","CRCH"],	
 			"DVCSN_Len":{"Len":16},
 
-			"_DataHead":{"Len":9},		
+			"_DataHead":{"Len":9},
 			"InternalTemperature":{"Len":2,"Digit":0.1},
-			"EnergyDay":{"Len":2,"Digit":0.01},
 			"VdcPV1":{"Len":2,"Digit":0.1},
 			"VdcPV2":{"Len":2,"Digit":0.1},
+			"__NA1":{"Len":2},
 			"IdcPV1":{"Len":2,"Digit":0.1},
 			"IdcPV2":{"Len":2,"Digit":0.1},
+			"__NA2":{"Len":2},
 			"IacR":{"Len":2,"Digit":0.1},
+			"__IacS":{"Len":2,"Digit":0.1},	
+			"__IacT":{"Len":2,"Digit":0.1},
 			"VacR":{"Len":2,"Digit":0.1},
-			"FacR":{"Len":2,"Digit":0.01},
-			"ACPwerR":{"Len":2,"Digit":1},
-			"_Zac":{"Len":2,"Digit":1},
+			"__VacS":{"Len":2,"Digit":0.1},
+			"__VacT":{"Len":2,"Digit":0.1},
+			"Fgrid":{"Len":2,"Digit":0.01},
+			"ACPowerR":{"Len":2,"Digit":1},
+			"__ACPowerS":{"Len":2,"Digit":1},
+			"__ACPowerT":{"Len":2,"Digit":1},
+			"__NA3":{"Len":4},			
+			"__EnergyDay":{"Len":2,"Digit":0.01},
 			"EnergyTotal":{"Len":4,"Digit":0.1},
 			"RunTimeTotal":{"Len":4,"Digit":1},
-			"_WorkMode":{"Len":2,"Digit":1},
-			"_FaultValue":{"Len":14},
-			"_ErroMSG":{"Len":4},
-			"_DataCheckSum":{"Len":2}
-		}
-		},	
-
-	"CheckCmd":{
-		"_FailCheck":{
-			"Check":["_Zac",65535],
-			"ErroMessage":["_FaultValue","_ErroMSG"],
-			"WorkStatus":"Fault"
-			},
-		"_OffCheck":{
-			"Check":["_WorkMode",3],
-			"WorkStatus":"Off"
+			"_OperationMode":{"Len":2,"Digit":1},
+			"_ErroMessage":{"Len":56}
 		}
 		},
 
+	"CheckCmd":{
+		"_FailCheck1":{
+			"Check":["_OperationMode",2],
+			"ErroMessage":["_ErroMessage"],
+			"WorkStatus":"Fault"
+			},
+		"_FailCheck2":{
+			"Check":["_OperationMode",3],
+			"ErroMessage":["_ErroMessage"],
+			"WorkStatus":"Fault"
+		}
+		},
+	"ACActivePowerTotal":{
+		"Function":"Sum",
+		"Items":["ACPowerR"],
+		"Digit":1		
+		},
 	"DCPowerPV1":{
 		"Function":"Multiply",
 		"Items":["VdcPV1","IdcPV1"],
@@ -55,12 +66,13 @@
 		"Function":"Average",
 		"Items":["VdcPV1","VdcPV2"],
 		"Digit":1
-		},
+		},	
 	"DCPowerTotal":{
 		"Function":"Sum",
 		"Items":["DCPowerPV1","DCPowerPV2"],
 		"Digit":1
 		},
+
 	"IdcTotal":{
 		"Function":"Division",
 		"Dividend":"DCPowerTotal",
@@ -70,11 +82,6 @@
 	"AverVac":{
 		"Function":"Average",
 		"Items":["VacR"],
-		"Digit":1
-		},
-	"ACActivePowerTotal":{
-		"Function":"Sum",
-		"Items":["ACPwerR"],
 		"Digit":1
 		},
 	"IacTotal":{

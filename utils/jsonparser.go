@@ -122,3 +122,20 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 
 	return retMap
 }
+
+func HandleJSONCmd(fname string, cmd string) (*simplejson.Json, error) {
+	goBook, err := parseJSONFile(fname)
+	if err == nil {
+		value := goBook.Get(cmd)
+		//fmt.Printf("HandleJSONCmd: value=%v\n", value)
+		if _, err := value.Map(); err == nil {
+			//fmt.Println("get value ", value)
+			return value, nil
+		} else {
+			//fmt.Println("error:=", err)
+			return nil, err
+		}
+	} else {
+		return nil, err
+	}
+}

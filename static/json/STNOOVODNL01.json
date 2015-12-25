@@ -1,0 +1,132 @@
+{	"StyleCode":["ST","NOOVO","DNL01"],
+	"TableVersion":"V1.00.0",
+	"CreateDate":1449461220,
+	"UpdatedDate":1449461220,
+
+	"SingleNetwork":{
+		"DisplayName":{
+			"EN":"Single-Model Network",
+			"CH":"单一设备网络"
+		}
+		},
+	"MultiNetwork":{
+		"DisplayName":{
+			"EN":"Multi-Model Network",
+			"CH":"混合设备网络"
+			},
+
+		"SBGOODWA8081":{
+			"BrandName":{
+				"EN":"GOODWE",
+				"CH":"固德威"
+				},
+			"Models":["GW1000-NS","GW1500-NS"],
+			"Description":{
+				"CH":"太阳能逆变器系列通信协议",
+				"EN":"Protocol for Solar Inverter Family"
+				},
+			"StyleFile":"SBGOODWA8081",
+			"StyleVersion":"V01.03.2"
+			},
+
+		"SBOMNIK3P111":{
+			"BrandName":{
+				"EN":"OMNIK",
+				"CH":"欧姆尼克"
+				},
+			"Models":["NONE"],
+			"Description":{
+				"CH":"二代三相太阳能逆变器通信协议",
+				"EN":"Inverter Protocol for Solar Inverter Family - G2 3Phase"
+				},
+			"StyleFile":"SBOMNIK3P111",
+			"StyleVersion":"V01.03.2"
+			},
+
+		"SBOMNIK8K111":{
+			"BrandName":{
+				"EN":"OMNIK",
+				"CH":"欧姆尼克"
+				},
+			"Models":["NONE"],
+			"Description":{
+				"CH":"8kW太阳能逆变器通信协议",
+				"EN":"Inverter Protocol for Solar Inverter Family - 8kW"
+				},
+			"StyleFile":"SBOMNIK8K111",
+			"StyleVersion":"V01.03.2"
+			},
+
+		"SBSHOUHTLS01":{
+			"BrandName":{
+				"EN":"Sofar",
+				"CH":"首航新能源"
+				},
+			"Models":[
+			"Sofar 17000TL-S0","Sofar 10000TL-S0",
+			"Sofar 17000TL-S1","Sofar 10000TL-S1",
+			"Sofar 17000TL-S2","Sofar 10000TL-S2",
+			"Sofar 17000TL-S3","Sofar 10000TL-S3",
+			"Sofar 17000TL-S4","Sofar 10000TL-S4",
+			"Sofar 17000TL-S5","Sofar 10000TL-S5",
+			"Sofar 17000TL-S6","Sofar 10000TL-S6"],
+			"Description":{
+				"CH":"首航新能源ModBus-RTU通信协议"
+				},
+			"StyleFile":"SBSHOUHTLS01",
+			"StyleVersion":"V01.03.2"
+			},
+
+		"SBSUNGRKTL01":{
+			"BrandName":{
+				"EN":"SUNGROW",
+				"CH":"阳光电源"
+				},
+			"Models":[
+			"SG3K-B","SG5K-B","SG5K-C","SG6K-B","SG6K-C",
+			"SG3KTL-M","SG4KTL-M","SG5KTL-M",
+			"SG2KTL","SG3KTL","SG4KTL","SG5KTL","SG6KTL",
+			"SG3KTL-EC","SG4KTL-EC","SG5KTL-EC","SG6KTL-EC",
+			"SG2KTL-S","SG2K5TL-S","SG3KTL-S","SG3K6TL-S","SG4KTL-S",
+			"SG3KTL-D","SG3K6TL-D","SG5KTL-D","SG4K6TL-D",
+			"SG8KTL","SG10KTL","SG12KTL","SG15KTL","SG20KTL","SG30KTL","SG36KTL",
+			"SG40KTL","SG50KTL","SG55KTL","SG56KTL","SG60KTL",
+			"SG20KU","SG30KU","SG36KU","SG56KU","SG60KU",
+			"SG8KTL-EC","SG10KTL-EC","SG12KTL-EC","SG15KTL-EC",
+			"SG33KTL-M","SG40KTL-M","SG50KTL-M","SG60KTL-M","SG60KU-M",
+			"SG16K6J","SG30KJ","SG34KJ",
+			"SG24MX","LP-P34KSG"],
+			"Description":{
+				"CH":"光伏并网逆变器通信协议v1.0.13.3"
+				},
+			"StyleFile":"SBSUNGRKTL01",
+			"StyleVersion":"V01.03.2"
+			},
+			
+		"SBTRNGYSP001":{
+			"BrandName":{
+				"EN":"TRANERGY",
+				"CH":"兆能"
+				},
+			"Models":["NONE"],
+			"Description":{
+				"CH":"单相机通讯命令"
+				},
+			"StyleFile":"SBTRNGYSP001",
+			"StyleVersion":"V01.03.2"
+			},
+
+		"SBKEHUA3P001":{
+			"BrandName":{
+				"EN":"KEHUA",
+				"CH":"科华"
+				},
+			"Models":["NONE"],
+			"Description":{
+				"CH":"三相并网Modbus协议"
+				},
+			"StyleFile":"SBKEHUA3P001",
+			"StyleVersion":"V01.03.2"
+		}
+	}
+}

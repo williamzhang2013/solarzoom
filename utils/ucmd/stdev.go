@@ -1,17 +1,17 @@
 package ucmd
 
 import (
-	"fmt"
+	//"fmt"
 	"math"
 )
 
 type Stdev struct {
-	data []float64
-	unit float64
+	data  []float64
+	digit float64
 }
 
-func NewStdev(data []float64, unit float64) *Stdev {
-	return &Stdev{data, unit}
+func NewStdev(data []float64, digit float64) *Stdev {
+	return &Stdev{data, digit}
 }
 
 func (p *Stdev) Run() float64 {
@@ -29,6 +29,6 @@ func (p *Stdev) Run() float64 {
 	}
 	avg = sum / float64(len(p.data))
 
-	fmt.Println("Stdev command run!")
-	return math.Sqrt(avg) * float64(p.unit)
+	//fmt.Println("Stdev command run!")
+	return math.Sqrt(avg) * float64(p.digit)
 }

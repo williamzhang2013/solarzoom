@@ -11,8 +11,7 @@ func init() {
 	beego.Router("/gw/auth", &controllers.AuthController{})
 	beego.Router("/gw/config/", &controllers.ConfigController{})
 	beego.Router("/gw/config/synctime", &controllers.ConfigController{}, "*:SyncTime")
-	beego.Router("/gw/config/getsingleivttbl", &controllers.ConfigController{}, "*:GetSingleIVTTable")
-	beego.Router("/gw/config/gethybridivttbl", &controllers.ConfigController{}, "*:GetHybridIVTTable")
+	beego.Router("/gw/config/getivttable", &controllers.ConfigController{}, "*:GetIVTTable")
 	beego.Router("/gw", &controllers.DataController{})
 	beego.Router("/gw/cmd", &controllers.DataController{}, "*:Command")
 

@@ -1,16 +1,16 @@
 package ucmd
 
 import (
-	"fmt"
+//"fmt"
 )
 
 type Sum struct {
-	data []float64
-	unit float64
+	data  []float64
+	digit float64
 }
 
-func NewSum(data []float64, unit float64) *Sum {
-	return &Sum{data, unit}
+func NewSum(data []float64, digit float64) *Sum {
+	return &Sum{data, digit}
 }
 
 func (p *Sum) Run() float64 {
@@ -19,6 +19,6 @@ func (p *Sum) Run() float64 {
 		sum += v
 	}
 
-	fmt.Println("Sum command run!")
-	return sum * p.unit
+	//fmt.Println("Sum command run!")
+	return sum * p.digit
 }

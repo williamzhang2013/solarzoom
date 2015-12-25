@@ -1,9 +1,7 @@
 {	"StyleCode":["SB","TRNGY","SP001"],
-	"StyleVersion":"V01.03.1",
+	"StyleVersion":"V01.03.2",
 	"CreateDate":"2015.10.20",
-	
 	"Probe":null,
-	
 	"OfflineQuery":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
@@ -12,23 +10,19 @@
 			"_OffLineAddr":[0,0],
 			"_FunctionCode":[16,0],
 			"_DataLen":[0]
-		},
+			},
 		"Response":{ 
 			"Response_Len":27,
-
 			"ExpectedDataPointer_Len":null,
 			"ExpectedData_Len":null,
 			"ExpectedData":null,
-
 			"SNPointer_Len":9,
 			"SN_Len":16,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
 	},
-	
 	"AddrAssign":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","SN_Len","DAddr_Len","ChkSumL","ChkSumH"],
@@ -39,23 +33,19 @@
 			"_DataLen":[17],
 			"SN_Len":16,
 			"DAddr_Len":1
-		},
+			},
 		"Response":{
 			"Response_Len":12,
-
 			"ExpectedDataPointer_Len":8,
 			"ExpectedData_Len":2,
 			"ExpectedData":[1,6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":8,
 			"FailChkData_Len":2,
 			"FailChkData":[1,21]
 		}
-	},
-	
+		},
 	"_ReadData":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
@@ -64,29 +54,25 @@
 			"DAddr_Len":2,
 			"_FunctionCode":[17,2],
 			"_DataLen":[0]
-		},
+			},
 		"Response":{		
 			"Response_Len":61,
-
 			"ExpectedDataPointer_Len":null,
 			"ExpectedData_Len":null,
 			"ExpectedData":null,
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-			
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
-	},
-	
+		},
 	"BATCH":[
 		{	"CmdRsltTblName":"TR001",
 			"CmdOrder":["_ReadData"],
 			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
 			"RecycleTime":300
-		}
+			},
 		{	"CmdRsltTblName":"TRPuls",
 			"CmdOrder":["_ReadData"],
 			"RsltOrder":null,

@@ -1,7 +1,6 @@
 {	"StyleCode":["SB","GOODW","A8081"],
-	"StyleVersion":"V01.03.1",
+	"StyleVersion":"V01.03.2",
 	"CreateDate":"2015.09.24",
-	
 	"Probe":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
@@ -14,14 +13,11 @@
 			},
 		"Response":{
 			"Response_Len":73,
-
 			"ExpectedDataPointer_Len":22,
 			"ExpectedData_Len":6,
 			"ExpectedData":[71,79,79,68,87,69],
-
 			"SNPointer_Len":38,
 			"SN_Len":16,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -39,14 +35,11 @@
 			},
 		"Response":{ 
 			"Response_Len":25,
-
 			"ExpectedDataPointer_Len":null,
 			"ExpectedData_Len":null,
 			"ExpectedData":null,
-
 			"SNPointer_Len":7,
 			"SN_Len":16,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -66,20 +59,16 @@
 			},
 		"Response":{
 			"Response_Len":9,
-
 			"ExpectedDataPointer_Len":4,
 			"ExpectedData_Len":2,
 			"ExpectedData":[0,129],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
 		},
-
 	"_LogOff":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
@@ -92,14 +81,11 @@
 			},
 		"Response":{
 			"Response_Len":9,
-
 			"ExpectedDataPointer_Len":4,
 			"ExpectedData_Len":2,
 			"ExpectedData":[0,130],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -117,14 +103,11 @@
 			},
 		"Response":{
 			"Response_Len":10,
-
 			"ExpectedDataPointer_Len":7,
 			"ExpectedData_Len":1,
 			"ExpectedData":[6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":7,
 			"FailChkData_Len":1,
 			"FailChkData":[21]
@@ -142,14 +125,11 @@
 			},
 		"Response":{
 			"Response_Len":10,
-
 			"ExpectedDataPointer_Len":7,
 			"ExpectedData_Len":1,
 			"ExpectedData":[6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":7,
 			"FailChkData_Len":1,
 			"FailChkData":[21]
@@ -167,14 +147,11 @@
 			},
 		"Response":{
 			"Response_Len":10,
-
 			"ExpectedDataPointer_Len":7,
 			"ExpectedData_Len":1,
 			"ExpectedData":[6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":7,
 			"FailChkData_Len":1,
 			"FailChkData":[21]
@@ -192,14 +169,11 @@
 			},
 		"Response":{
 			"Response_Len":10,
-
 			"ExpectedDataPointer_Len":7,
 			"ExpectedData_Len":1,
 			"ExpectedData":[6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":7,
 			"FailChkData_Len":1,
 			"FailChkData":[21]
@@ -217,20 +191,16 @@
 			},
 		"Response":{
 			"Response_Len":10,
-
 			"ExpectedDataPointer_Len":7,
 			"ExpectedData_Len":1,
 			"ExpectedData":[6],
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":7,
 			"FailChkData_Len":1,
 			"FailChkData":[21]
 		}
 		},
-
 	"_ReadDataCommandA":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
@@ -242,20 +212,16 @@
 			},
 		"Response":{		
 			"Response_Len":103,
-
 			"ExpectedDataPointer_Len":null,
 			"ExpectedData_Len":null,
 			"ExpectedData":null,
-
 			"SNPointer_Len":null,
 			"SN_Len":null,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
 		},
-
 	"BATCH":[
 		{	"CmdRsltTblName":"GW001",
 			"CmdOrder":["_ReadDataCommandA"],
@@ -266,6 +232,11 @@
 			"CmdOrder":["_SetSaftyCountry"],
 			"RsltOrder":null,
 			"RecycleTime":430
+			},
+		{	"CommandTableName":"STIME",
+			"CommandOrder":["_SetSystemTime"],
+			"RsltOrder":null,
+			"RecycleTime":14400
 		}
 	]
 }
