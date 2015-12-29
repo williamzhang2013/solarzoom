@@ -1,7 +1,7 @@
 {	"StyleCode":["ST","NOOVO","DNL01"],
 	"TableVersion":"V1.00.0",
 	"CreateDate":1449461220,
-	"UpdatedDate":1449461220,
+	"UpdatedDate":1451376000,
 
 	"SingleNetwork":{
 		"DisplayName":{
@@ -126,6 +126,18 @@
 				"CH":"三相并网Modbus协议"
 				},
 			"StyleFile":"SBKEHUA3P001",
+			"StyleVersion":"V01.03.2"
+			},
+		"SBTAIDAV0139":{
+			"BrandName":{
+				"EN":"TAIDA",
+				"CH":"台达"
+				},
+			"Models":["NONE"],
+			"Description":{
+				"CH":"逆变器通讯协议V01.39"
+				},
+			"StyleFile":"SBTAIDAV0139",
 			"StyleVersion":"V01.03.2"
 		}
 	}

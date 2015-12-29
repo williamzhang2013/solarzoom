@@ -14,7 +14,7 @@ func NewStdev(data []float64, digit float64) *Stdev {
 	return &Stdev{data, digit}
 }
 
-func (p *Stdev) Run() float64 {
+func (p *Stdev) Run() interface{} {
 	var sum float64 = 0.0
 	var avg float64 = 0.0
 

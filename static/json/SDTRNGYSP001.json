@@ -41,6 +41,48 @@
 		}
 		},
 
+	"_Default65535":{
+		"Function":"GetDefault",
+		"Default":65535
+		},		
+	"_Default3":{
+		"Function":"GetDefault",
+		"Default":3
+		},	
+	"_DefaultNil":{
+		"Function":"GetDefault",
+		"Default":""
+	},
+	"WorkStatus":{
+		"Function":"NVStrCat",
+		"Items":["_FailCheck", "_OffCheck"]
+	},
+	"_DefaultFault":{
+		"Function":"GetDefault",
+		"Default":"Fault"
+	},
+	"_FailCheck":{
+		"Function":"Equal",
+		"Items":["_Zac", "_Default65535", "_DefaultFault", "_DefaultNil"]
+	},
+	"_DefaultOff":{
+		"Function":"GetDefault",
+		"Default":"Off"
+	},	
+	"_OffCheck":{
+		"Function":"Equal",
+		"Items":["_WorkMode", "_Default3", "_DefaultOff", "_DefaultNil"]
+	},
+
+	"_FailMessage":{
+		"Function":"NVStrCat",
+		"Items":["_FaultValue", "_ErroMSG"]
+	},
+	"ErrorMessage":{
+		"Function":"Equal",
+		"Items":["_Zac", "_Default65535", "_FailMessage", "_DefaultNil"]
+	},	
+
 	"DCPowerPV1":{
 		"Function":"Multiply",
 		"Items":["VdcPV1","IdcPV1"],
@@ -111,10 +153,14 @@
 		"Divisor":"DCPowerTotal",
 		"Digit":1
 		},
+	"_Default12000":{
+		"Function":"GetDefault",
+		"Default":12000.0
+		},
 	"SPLPEnergy":{
 		"Function":"Division",
 		"Dividend":"ACActivePowerTotal",
-		"Divisor":12000,
+		"Divisor":"_Default12000",
 		"Digit":1
 	}
 }

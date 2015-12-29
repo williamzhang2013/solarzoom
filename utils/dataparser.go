@@ -16,6 +16,7 @@ type CalcUnit struct {
 	SubResult []interface{} // every sub command should be a return value
 	Digital   float64       // digital
 	Oper      string        // function name --- some function should be special treatment
+	Default   interface{}   // default value
 	//Value   interface{}
 }
 
@@ -27,6 +28,7 @@ const FItem_Dividend string = "Dividend"
 const FItem_Divisor string = "Divisor"
 const FItem_H string = "H"
 const FItem_L string = "L"
+const FItem_Default string = "Default"
 
 const Cmd_WorkStatus string = "WorkStatus"
 const Cmd_RunTimeTotal string = "RunTimeTotal"
@@ -72,6 +74,7 @@ const Cmd_IacBalance string = "IacBalance"
 const Cmd_Fgrid string = "Fgrid"
 const Cmd_Efficiency string = "Efficiency"
 const Cmd_SPLPEnergy string = "SPLPEnergy"
+const Cmd_ErrorMessage string = "ErrorMessage"
 
 ///////////////////////////////////////////////////////////////////////////////
 var dataCalcDB map[string]*CalcUnit
@@ -125,6 +128,7 @@ func init() {
 	dataCalcDB[Cmd_Fgrid] = NewCalcUnit(Cmd_Fgrid)
 	dataCalcDB[Cmd_Efficiency] = NewCalcUnit(Cmd_Efficiency)
 	dataCalcDB[Cmd_SPLPEnergy] = NewCalcUnit(Cmd_SPLPEnergy)
+	dataCalcDB[Cmd_ErrorMessage] = NewCalcUnit(Cmd_ErrorMessage)
 }
 
 func NewCalcUnit(cmd string) *CalcUnit {
@@ -153,6 +157,14 @@ func genSubCmdUnit(v *simplejson.Json, data *CalcUnit) {
 
 		item, _ = v.Get(FItem_L).String()
 		data.SubCmd = append(data.SubCmd, item)
+	case ucmd.FNAME_GDEF:
+		var err error
+		if data.Default, err = v.Get(FItem_Default).String(); err != nil {
+			if data.Default, err = v.Get(FItem_Default).Float64(); err != nil {
+				data.Default, _ = v.Get(FItem_Default).Int64()
+			}
+		}
+		//fmt.Println("default value:", data.Default)
 	default:
 		// normal sub command
 		data.SubCmd, _ = v.Get(FItem_Items).StringArray()
@@ -184,8 +196,62 @@ func genCalcPara(oper string, orig []interface{}) interface{} {
 			para[i], _ = v.(float64)
 		}
 		return para
+	case ucmd.FNAME_ISEQUAL:
+		length := len(orig)
+		para := make([]interface{}, length)
+		for i, v := range orig {
+			para[i] = v
+		}
+		return para
+	case ucmd.FNAME_NVSTRCAT:
+		length := len(orig)
+		para := make([]string, length)
+		for i, v := range orig {
+			para[i], _ = v.(string)
+		}
+		return para
 	}
+
 	return nil
+}
+func reInitCalcUnit(unit *CalcUnit) {
+	unit.SubCmd = nil
+	unit.SubResult = nil
+	unit.Digital = 0.0
+	unit.Default = nil
+}
+
+func DoRunCalcFunc(fname string, unit *CalcUnit, value *simplejson.Json, dataMap map[string]interface{}) (interface{}, error) {
+	unit.Oper, _ = value.Get(FItem_Function).String()
+	reInitCalcUnit(unit)
+	genSubCmdUnit(value, unit)
+	fmt.Printf("function unit:%v\n", unit)
+
+	//traverse the sub command
+	for _, subCmd := range unit.SubCmd {
+		subUnit := NewCalcUnit(subCmd)
+
+		subVal, _ := DoRunCalcUnit(fname, subUnit, dataMap)
+		unit.SubResult = append(unit.SubResult, subVal)
+	}
+
+	// calc the result
+	var cmdPara interface{}
+	switch unit.Oper {
+	case ucmd.FNAME_GDEF:
+		cmdPara = unit.Default
+
+		//cmdPara0, _ := cmdPara.(int64)
+		//cmdPara1, _ := cmdPara.(float64)
+		//fmt.Printf("cmdPara=%v, cmdParaf=%v\n", cmdPara0, cmdPara1)
+	default:
+		cmdPara = genCalcPara(unit.Oper, unit.SubResult)
+		//fmt.Println("cmdPara=", cmdPara)
+	}
+	//fmt.Printf("Oper=%v, SubResult=%v, Digital=%v, cmdPara=%v\n", unit.Oper, unit.SubResult, unit.Digital, cmdPara)
+	result := ucmd.Run(unit.Oper, cmdPara, unit.Digital)
+	//fmt.Println("result=", result)
+	return result, nil
 }
 
 // The function used calculate the input unit's value
@@ -193,41 +259,19 @@ func DoRunCalcUnit(fname string, unit *CalcUnit, dataMap map[string]interface{})
 	data, ok := dataMap[unit.Cmd]
 	if ok {
 		// find the value
-		//fmt.Println("in value data: data=", data)
+		//fmt.Println("1 ------ in value data: data=", data)
 		return data, nil
 	} else {
 		// can't find the value
 		if value, err := HandleJSONCmd(fname, unit.Cmd); err != nil {
 			// no this command!
 			//fmt.Println("NO this command")
+			//fmt.Println("2 ------ No this command")
 			return nil, err
 		} else {
 			// parse sub command, traverse all items
-			unit.Oper, _ = value.Get(FItem_Function).String()
-			genSubCmdUnit(value, unit)
-			//fmt.Printf("function unit:%v\n", unit)
-
-			//traverse the sub command
-			for i, subCmd := range unit.SubCmd {
-				subUnit := NewCalcUnit(subCmd)
-				//fmt.Printf("Calc sub result: cmd=%v, subcmd=%v\n", unit.Cmd, subCmd)
-				if unit.Cmd == Cmd_SPLPEnergy && i == 1 {
-					//fmt.Println("Cmd_SPLPEnergy second para!")
-					unit.SubResult = append(unit.SubResult, 12000.0)
-				} else {
-					subVal, _ := DoRunCalcUnit(fname, subUnit, dataMap)
-					unit.SubResult = append(unit.SubResult, subVal)
-				}
-				//RunCalcUnit(fname, subCmd, dataMap) // need this return val
-			}
-
-			// calc the result
-			//fmt.Printf("Oper=%v, SubResult=%v, Digital=%v\n", unit.Oper, unit.SubResult, unit.Digital)
-			cmdPara := genCalcPara(unit.Oper, unit.SubResult)
-			//fmt.Println("cmdPara=", cmdPara)
-			result := ucmd.Run(unit.Oper, cmdPara, unit.Digital)
-			//fmt.Println("result=", result)
-			return result, nil
+			//fmt.Println("3 ------ parse this command")
+			return DoRunCalcFunc(fname, unit, value, dataMap)
 		}
 	}
 

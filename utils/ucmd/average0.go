@@ -13,7 +13,7 @@ func NewAverage0(data []float64, digit float64) *Average0 {
 	return &Average0{data, digit}
 }
 
-func (p *Average0) Run() float64 {
+func (p *Average0) Run() interface{} {
 	var sum float64 = 0.0
 
 	for _, v := range p.data {

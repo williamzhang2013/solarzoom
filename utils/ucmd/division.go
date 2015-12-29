@@ -14,7 +14,7 @@ func NewDivision(dividend, divisor, digit float64) *Division {
 	return &Division{dividend, divisor, digit}
 }
 
-func (p *Division) Run() float64 {
+func (p *Division) Run() interface{} {
 	//fmt.Printf("Division command run! dividend=%f, divisor=%d\n", p.dividend, p.divisor)
 	return p.dividend / p.divisor * p.digit
 }

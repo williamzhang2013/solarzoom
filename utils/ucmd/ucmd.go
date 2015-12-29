@@ -5,7 +5,7 @@ import (
 )
 
 type UCmd interface {
-	Run() float64
+	Run() interface{}
 }
 
 const FNAME_SUM string = "Sum"
@@ -15,8 +15,11 @@ const FNAME_MUL string = "Multiply"
 const FNAME_HL string = "H_L"
 const FNAME_STDEV string = "STDEV"
 const FNAME_AVG0 string = "Averge0" // averge include 0
+const FNAME_GDEF string = "GetDefault"
+const FNAME_ISEQUAL string = "Equal"
+const FNAME_NVSTRCAT string = "NVStrCat"
 
-func Run(source string, data interface{}, digit float64) float64 {
+func Run(source string, data interface{}, digit float64) interface{} {
 	var cmd UCmd
 
 	//fmt.Println("UCmd run! command =", source)
@@ -42,6 +45,21 @@ func Run(source string, data interface{}, digit float64) float64 {
 	case FNAME_STDEV:
 		para, _ := data.([]float64)
 		cmd = &Stdev{para, digit}
+	case FNAME_GDEF:
+		cmd = &GetDefault{data}
+	case FNAME_ISEQUAL:
+		para, _ := data.([]interface{})
+		para0, _ := para[0].(float64)
+		para1, _ := para[1].(float64)
+		para2, _ := para[2].(string)
+		para3, _ := para[3].(string)
+
+		//fmt.Printf("Run equal cmd: para0=%v, para1=%v, para2=%v, para3=%v\n", para0, para1, para2, para3)
+		//fmt.Println("data value=", data)
+		cmd = &Equal2{int64(para0), int64(para1), para2, para3}
+	case FNAME_NVSTRCAT:
+		para, _ := data.([]string)
+		cmd = &NVStrCat{para}
 	default:
 		fmt.Println("Unsupported Command!")
 		return 0.0

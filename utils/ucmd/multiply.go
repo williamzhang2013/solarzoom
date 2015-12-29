@@ -13,7 +13,7 @@ func NewMultiply(data []float64, digit float64) *Multiply {
 	return &Multiply{data, digit}
 }
 
-func (p *Multiply) Run() float64 {
+func (p *Multiply) Run() interface{} {
 	var mul float64 = 1.0
 	//fmt.Printf("Multiply=%v\n", p)
 	for _, v := range p.data {

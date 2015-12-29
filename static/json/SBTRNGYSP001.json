@@ -4,7 +4,7 @@
 	"Probe":null,
 	"OfflineQuery":{
 		"Command":{
-			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","ChkSumH","ChkSumL"],
 			"_Head":[170,85],
 			"_GWAddr":[1,0],
 			"_OffLineAddr":[0,0],
@@ -22,10 +22,10 @@
 			"FailChkData_Len":null,
 			"FailChkData":null
 		}
-	},
+		},
 	"AddrAssign":{
 		"Command":{
-			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","SN_Len","DAddr_Len","ChkSumL","ChkSumH"],
+			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","SN_Len","DAddr_Len","ChkSumH","ChkSumL"],
 			"_Head":[170,85],
 			"_GWAddr":[1,0],
 			"_OffLineAddr":[0,0],
@@ -48,7 +48,7 @@
 		},
 	"_ReadData":{
 		"Command":{
-			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],
+			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_FunctionCode","_DataLen","ChkSumH","ChkSumL"],
 			"_Head":[170,85],
 			"_GWAddr":[1,0],
 			"DAddr_Len":2,

@@ -7,6 +7,7 @@ import (
 	"solarzoom/models"
 	"solarzoom/utils"
 	"strconv"
+	"strings"
 	//"solarzoom/utils/simplejson"
 )
 
@@ -21,17 +22,20 @@ type DataController struct {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-//var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f563030303030303150434c313330305231353831323030320025000043370001aa55000101001182320083000005b90000000000000000089b138e000000020000000000000000000000000000ffff000000000000000000020200064fdeb2"
-var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f5630303030303031303030303030303050434c31333030523135383132303032000a0000192901aa550001010011823200e2002204c200000005000000020883138e002b00000000000500000007000100000000ffff000000000000000000000000006f99151"
+const STR_FAULT string = "Fault"
+const STR_OFF string = "Off"
 
+//var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f563030303030303150434c313330305231353831323030320025000043370001aa55000101001182320083000005b90000000000000000089b138e000000020000000000000000000000000000ffff000000000000000000020200064fdeb2"
+//var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f5630303030303031303030303030303050434c31333030523135383132303032000a0000192901aa550001010011823200e2002204c200000005000000020883138e002b00000000000500000007000100000000ffff000000000000000000000000006f99151"
 //var sData string = "5602300231022e02300233022e02310253024202540252024e024702590253025002300230023102540252023002300231024e024f0256023002300230023002300230023102500243024c023102330230023002520231023502380231023202300230023602002102560271023902f02102aa025502002102102002110282023202002d802002002d02402002002002102002002002002002002002002002002002002002002002002002002002002002202002002002002ff02ff02002002002002002002002002002002202002402b2026b02e102"
+var sData string = "5630312e30332e31534254524e4759535030303154523030314e4f5630303030303031303030303030303050434c3133303052313538313230303100035680d0c601aa5500010100118232011a012905570000002f0000001b088b138c026500000000001f00000005000100000000ffff000000000000000000000000066d23b5"
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 func setBatchOrder(m *models.PvInverterRunData, dataMap map[string]interface{}) {
-	if order, ok := dataMap["BatchOrder"].(int32); ok {
-		m.BatchOrder = order
+	if order, ok := dataMap["BatchOrder"].(uint64); ok {
+		m.BatchOrder = int32(order)
 	}
 }
 
@@ -42,6 +46,23 @@ func setSampleTime(m *models.PvInverterRunData, dataMap map[string]interface{}) 
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+func setWorkStatus(m *models.PvInverterRunData, fname string, dataMap map[string]interface{}) {
+	var workStatus = "Normal"
+
+	if v, err := utils.RunCalcUnit(fname, utils.Cmd_WorkStatus, dataMap); err == nil {
+		if s, ok := v.(string); ok {
+			m.WorkStatus = s
+			if b := strings.Contains(s, STR_FAULT); !b {
+				if b = strings.Contains(s, STR_OFF); !b {
+					m.WorkStatus = workStatus
+				}
+			}
+		} else {
+			m.WorkStatus = workStatus
+		}
+	}
+}
+
 func setRunTimeTotal(m *models.PvInverterRunData, fname string, dataMap map[string]interface{}) {
 	if v, err := utils.RunCalcUnit(fname, utils.Cmd_RunTimeTotal, dataMap); err == nil {
 		if time, ok := v.(float64); ok {
@@ -444,6 +465,18 @@ func getGWSN(dataMap map[string]interface{}) string {
 	return ""
 }
 
+func getErrorMessage(m *models.PvInverterRunData, fname string, dataMap map[string]interface{}) string {
+	if v, err := utils.RunCalcUnit(fname, utils.Cmd_ErrorMessage, dataMap); err == nil {
+		if msg, ok := v.(string); ok {
+			//s := fmt.Sprintf("%.02f", simu)
+			//fmt.Printf("simu=%v, s=%s\n", simu, s)
+			return msg
+		}
+	}
+
+	return ""
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 func handleDataRequest(ctrl *DataController) {
 	data := ctrl.GetString("data")
@@ -471,6 +504,8 @@ func handleDataRequest(ctrl *DataController) {
 	setBatchOrder(item, dataMap)
 	setSampleTime(item, dataMap)
 
+	setWorkStatus(item, fname, dataMap)
+	//fmt.Println("ErrorMessage:", getErrorMessage(item, fname, dataMap))
 	setRunTimeTotal(item, fname, dataMap)
 	setEnergyTotal(item, fname, dataMap)
 	setEnergyDay(item, fname, dataMap)
