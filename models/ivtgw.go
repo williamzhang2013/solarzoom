@@ -11,7 +11,6 @@ type PvCollectorInverter struct {
 	IvtId      int64  `orm:"pk;auto"` // primary key, inverter id
 	IvtSn      string // inverter sn
 	GwSn       string // gateway sn
-	IvtInfoId  int32  // inverter basic info id
 	IvtAddress string // inverter address
 }
 
@@ -20,12 +19,11 @@ func init() {
 	orm.RegisterModel(new(PvCollectorInverter))
 }
 
-func AddGwIVTItem(infoid int32, ivtsn, gwsn, ivtaddr string) (int64, error) {
+func AddGwIVTItem(ivtsn, gwsn, ivtaddr string) (int64, error) {
 	o := orm.NewOrm()
 	item := &PvCollectorInverter{
 		IvtSn:      ivtsn,
 		GwSn:       gwsn,
-		IvtInfoId:  infoid,
 		IvtAddress: ivtaddr,
 	}
 	id, err := o.Insert(item)

@@ -25,6 +25,7 @@ type DataController struct {
 const STR_FAULT string = "Fault"
 const STR_OFF string = "Off"
 
+// TRNGY Data
 //var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f563030303030303150434c313330305231353831323030320025000043370001aa55000101001182320083000005b90000000000000000089b138e000000020000000000000000000000000000ffff000000000000000000020200064fdeb2"
 //var sData string = "5630312e30322e34534254524e4759535030303154523030314e4f5630303030303031303030303030303050434c31333030523135383132303032000a0000192901aa550001010011823200e2002204c200000005000000020883138e002b00000000000500000007000100000000ffff000000000000000000000000006f99151"
 //var sData string = "5602300231022e02300233022e02310253024202540252024e024702590253025002300230023102540252023002300231024e024f0256023002300230023002300230023102500243024c023102330230023002520231023502380231023202300230023602002102560271023902f02102aa025502002102102002110282023202002d802002002d02402002002002102002002002002002002002002002002002002002002002002002002002002002202002002002002ff02ff02002002002002002002002002002002202002402b2026b02e102"
@@ -478,29 +479,7 @@ func getErrorMessage(m *models.PvInverterRunData, fname string, dataMap map[stri
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-func handleDataRequest(ctrl *DataController) {
-	data := ctrl.GetString("data")
-	fmt.Println("data=", data)
-
-	var s []byte = []byte(sData)
-	//var s []byte = []byte(data)
-
-	stylecode := utils.PeekStyleCode(s)
-	fmt.Printf("stylecode=%v\n", stylecode)
-	fname := FILE_PREFIX + "SD" + stylecode[1] + stylecode[2] + ".json"
-	_, err := ioutil.ReadFile(fname)
-	if err != nil {
-		fmt.Println("ReadJSONFile:", err.Error())
-	} else {
-		fmt.Println("ReadJSONFile SUCCESS!")
-	}
-
-	// fmt.Println("styleVersion=", utils.PeekStyleVersion(s))
-	// fmt.Println("stylecode=", stylecode)
-	// fmt.Println("resultTableName=", utils.PeekRstTblName(s))
-	item := models.NewPvInverterRunData()
-	// parse the map
-	dataMap := utils.HandleSDData(fname, s)
+func genIvtRunDataDBItem(item *models.PvInverterRunData, fname string, dataMap map[string]interface{}) {
 	setBatchOrder(item, dataMap)
 	setSampleTime(item, dataMap)
 
@@ -549,22 +528,30 @@ func handleDataRequest(ctrl *DataController) {
 	setFgrid(item, fname, dataMap)
 	setEfficiency(item, fname, dataMap)
 	setSPLPEnergy(item, fname, dataMap)
+}
 
-	// //utils.GenerateRealTimeObject()
+func handleDataRequest(ctrl *DataController) {
+	data := ctrl.GetString("data")
+	fmt.Println("data=", data)
 
-	// //utils.HandleJSONCmd(fname, "DCPowerPV")
-	// if _, err = utils.RunCalcUnit(fname, "DCPowerTotal", dataMap); err == nil {
-	// 	fmt.Println("No error! Can get the value of this item")
-	// } else {
-	// 	fmt.Println("Error!", err)
-	// }
+	var s []byte = []byte(sData)
+	//var s []byte = []byte(data)
 
-	// fmt.Printf("myMap=%v\n", myMap)
-	// time := myMap["SmplTime"]
-	// tmpTime, ok := time.(uint64)
-	// if ok {
-	// 	item.SmplTime = int64(tmpTime)
-	// }
+	utils.WriteDebugLog("Handle Data: data=%v", data)
+	stylecode := utils.PeekStyleCode(s)
+	fmt.Printf("stylecode=%v\n", stylecode)
+	fname := FILE_PREFIX + "SD" + stylecode[1] + stylecode[2] + ".json"
+	_, err := ioutil.ReadFile(fname)
+	if err != nil {
+		fmt.Println("ReadJSONFile:", err.Error())
+	} else {
+		fmt.Println("ReadJSONFile SUCCESS!")
+	}
+
+	item := models.NewPvInverterRunData()
+	dataMap := utils.HandleSDData(fname, s)
+	genIvtRunDataDBItem(item, fname, dataMap)
+
 	// get the inverter sn
 	sn := getInverterSN(dataMap)
 	if len(sn) != 0 {
@@ -587,38 +574,16 @@ func handleDataRequest(ctrl *DataController) {
 	hisPower, _ := models.GetPVInverterTodayHisPower(item.IvtId)
 	thisPower := fmt.Sprintf("#%v:%v:%v", item.BatchOrder, item.SmplTime, item.DcpowerTotal)
 	hisPower = hisPower + thisPower
-	fmt.Printf("id=%v, power=%v, enertytotal=%v, energyday=%v, content=%v\n", dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, hisPower)
+	//fmt.Printf("id=%v, power=%v, enertytotal=%v, energyday=%v, content=%v\n", dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, hisPower)
 	if err := models.UpdatePvInverterTodayRecord(dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, 0, hisPower); err != nil {
 		fmt.Println("Something wrong!", err.Error())
 
 	}
 
-	// infoid, _ := ctrl.GetInt32("infoid")
-	// ivtsn := ctrl.GetString("ivtsn")
-	// gwsn := ctrl.GetString("gwsn")
-	// ivtaddr := ctrl.GetString("ivtaddr")
+	// careate the new table
+	// item.TableName()
+	// models.GenPvRunDataTable()
 
-	// fmt.Printf("infoid=%d, ivtsn=%v, gwsn=%v, ivtaddr=%v\n", infoid, ivtsn, gwsn, ivtaddr)
-	// _, err := models.AddGwIVTItem(infoid, ivtsn, gwsn, ivtaddr)
-	// if err != nil {
-	// 	beego.Error("write database PvCollectorInverter error!")
-	// }
-
-	// test the ORM CRUD operate
-	// _, err0 := models.AddInverterInfo("SN0004", "SH", "DESCRIPTION_YG", "0.0.1", 1456.54)
-
-	// if err0 != nil {
-	// 	beego.Error("write database InverterInfo error!")
-	// }
-
-	// _, err := models.AddUser(1, 2, "noovo", "john.yin", "shanghai", "william.zhang@noovo.co", "13817503955", "vip")
-	// if err != nil {
-	// 	beego.Error("write database User error!")
-	// }
-
-	//models.ReadInverterInfoById(1)
-	//models.UpdateInvertInfoById(4)
-	//models.DeleteInvertInfoById(4)
 	ctrl.Data["command1"] = "cmd"
 	ctrl.Data["value1"] = "data"
 	ctrl.Data["command2"] = "errcode"
@@ -632,7 +597,9 @@ func (ctrl *DataController) Get() {
 
 	//state := utils.GetSolarMapItem(utils.SessAuth)
 	//state = "ok"
+	utils.WriteDebugLog("/gw/data GET request")
 	if state != "ok" {
+		utils.WriteDebugLog("Data: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		handleDataRequest(ctrl)
@@ -645,7 +612,9 @@ func (ctrl *DataController) Post() {
 	state := sess.Get(utils.SessAuth)
 
 	//state := utils.GetSolarMapItem(utils.SessAuth)
+	utils.WriteDebugLog("/gw/data POST request")
 	if state != "ok" {
+		utils.WriteDebugLog("Data: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		handleDataRequest(ctrl)
@@ -656,10 +625,14 @@ func (ctrl *DataController) Command() {
 	sess := ctrl.StartSession()
 	state := sess.Get(utils.SessAuth)
 	//state := utils.GetSolarMapItem(utils.SessAuth)
+
 	if state != "ok" {
+		utils.WriteDebugLog("Data: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		fmt.Println("Command")
+
+		utils.WriteDebugLog("/gw/cmd request")
 		ctrl.Data["command"] = "Command"
 		ctrl.Data["value"] = "Send back command"
 		ctrl.TplNames = "cmd.tpl"

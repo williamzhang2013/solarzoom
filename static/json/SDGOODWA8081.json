@@ -35,19 +35,50 @@
 		}
 		},
 
-	"CheckCmd":{
-		"_FailCheck1":{
-			"Check":["_WorkStatus",2],
-			"ErroMessage":["_ErroMSG1","_ErroMSG2"],
-			"WorkStatus":"Fault"
-			},
-		"_FailCheck2":{
-			"Check":["_WorkStatus",3],
-			"ErroMessage":["_ErroMSG1","_ErroMSG2"],
-			"WorkStatus":"Fault"
-		}
+	"_Default2":{
+		"Function":"GetDefault",
+		"Default":2
+		},		
+	"_Default3":{
+		"Function":"GetDefault",
+		"Default":3
+		},	
+	"_DefaultNil":{
+		"Function":"GetDefault",
+		"Default":""
 		},
-	
+	"_DefaultFault":{
+		"Function":"GetDefault",
+		"Default":"Fault"
+		},
+	"_WorkStatus1":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default2", "_DefaultFault", "_DefaultNil"]
+		},
+	"_WorkStatus2":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default3", "_DefaultFault", "_DefaultNil"]
+		},
+	"WorkStatus":{
+		"Function":"NVStrCat",
+		"Items":["_WorkStatus1", "_WorkStatus2"]
+		},
+	"__ErroMessage":{
+		"Function":"NVStrCat",
+		"Items":["_ErroMSG1", "_ErroMSG2"]
+		},
+	"_ErroMessage1":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default2", "__ErroMessage", "_DefaultNil"]
+		},
+	"_ErroMessage2":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default3", "__ErroMessage", "_DefaultNil"]
+		},
+	"ErroMessage":{
+		"Function":"NVStrCat",
+		"Items":["_ErroMessage1", "_ErroMessage2"]
+		},	
 	"DCPowerPV1":{
 		"Function":"Multiply",
 		"Items":["VdcPV1","IdcPV1"],
@@ -128,10 +159,14 @@
 		"Divisor":"DCPowerTotal",
 		"Digit":1
 		},
+	"_Default12000":{
+		"Function":"GetDefault",
+		"Default":12000.0
+		},		
 	"SPLPEnergy":{
 		"Function":"Division",
 		"Dividend":"ACActivePowerTotal",
-		"Divisor":12000,
+		"Divisor":"_Default12000",
 		"Digit":1
 	}
 }

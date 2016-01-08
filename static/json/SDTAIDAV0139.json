@@ -32,7 +32,7 @@
 			"__CmdRdACBCRCLH",
 
 			"__CmdStACCRply",
-			"__CmdRdACCAddr":{"Len":1},
+			"__CmdRdACCAddr",
 			"__CmdRdACCFCodeAndBytesNumber",
 			"VacT",
 			"IacT",
@@ -70,7 +70,7 @@
 			"_RuntimeTotalH",
 			"InternalTemperature",
 			"__NADC1",
-			"__CmdRdDC1CRCLH"
+			"__CmdRdDC1CRCLH",
 
 			"CRCL","CRCH"],
 
@@ -136,16 +136,26 @@
 			"_RuntimeTotalH":{"Len":2},
 			"InternalTemperature":{"Len":2,"Digit":1},
 			"__NADC1":{"Len":2},
-			"__CmdRdDC1CRCLH":{"Len":2},
+			"__CmdRdDC1CRCLH":{"Len":2}
 		}
 		},
 
-	"CheckCmd":{
-		"_FailCheckA":{
-			"Check":["_WorkStatus",4],
-			"WorkStatus":"Fault"
-			},
-		},
+	"_DefaultFault":{
+		"Function":"GetDefault",
+		"Default":"Fault"
+	},	
+	"_DefaultNil":{
+		"Function":"GetDefault",
+		"Default":""
+	},	
+	"_Default4":{
+		"Function":"GetDefault",
+		"Default":4
+		},			
+	"WorkStatus":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default4", "_DefaultFault", "_DefaultNil"]
+	},		
 
 	"EnergyDay":{
 		"Function":"H_L",
@@ -222,10 +232,14 @@
 		"Divisor":"DCPowerTotal",
 		"Digit":1
 		},
+	"_Default12000":{
+		"Function":"GetDefault",
+		"Default":12000.0
+		},		
 	"SPLPEnergy":{
 		"Function":"Division",
 		"Dividend":"ACActivePowerTotal",
-		"Divisor":12000,
+		"Divisor":"_Default12000",
 		"Digit":1
 	}
 }

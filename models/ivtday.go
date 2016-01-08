@@ -5,6 +5,7 @@ import (
 	//"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"strconv"
 	"time"
 )
 
@@ -13,16 +14,16 @@ type PvInverterDayData struct {
 	IvtId               int64
 	InputTime           int64
 	Day                 int64
-	DataValidate        int32 // solarzoom
-	AcActivePowerTotal  float64
-	EnergyToday         float64
-	EnergyTotal         float64
+	DataValidate        int32   // solarzoom
+	AcActivePowerTotal  float64 `orm:"digits(8);decimals(2)"`
+	EnergyToday         float64 `orm:"digits(8);decimals(2)"`
+	EnergyTotal         float64 `orm:"digits(10);decimals(2)"`
 	PowerContent        string
 	NominalHours        int32   // count number
-	TodayHours          float32 // solarzoom
-	AvgDirectPower      float32 // solarzoom
-	AvgAlternatingPower float32 // solarzoom
-	AvgEfficiency       float32 // solarzoom
+	TodayHours          float32 `orm:"digits(5);decimals(3)"` // solarzoom
+	AvgDirectPower      float32 `orm:"digits(8);decimals(1)"` // solarzoom
+	AvgAlternatingPower float32 `orm:"digits(8);decimals(1)"` // solarzoom
+	AvgEfficiency       float32 `orm:"digits(4);decimals(3)"` // solarzoom
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -40,6 +41,17 @@ func GetCurrentDay() int64 {
 	year, month, day := time.Now().Date()
 	date := time.Date(year, month, day, 0, 0, 0, 0, time.Local)
 	return date.Unix()
+}
+
+func (u *PvInverterDayData) TableName() string {
+	fmt.Println("Get Inverter day data table name!")
+	year := time.Now().Year()
+	//fmt.Println("year=", year)
+	return "pv_inverter_day_data_" + strconv.Itoa(year)
+}
+
+func (u *PvInverterDayData) TableEngine() string {
+	return "MyISAM"
 }
 
 ///////////////////////////////////////////////////////////////////////////////

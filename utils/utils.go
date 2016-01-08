@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/astaxie/beego/logs"
 	"os"
 	"strconv"
 	//"math"
@@ -58,6 +59,35 @@ func DeleteSolarMapItem(k string) {
 	if ok {
 		delete(solarMap, k)
 	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+func WriteCriticalLog(format string, v ...interface{}) {
+	log := logs.NewLogger(10000)
+	log.SetLogger("file", `{"filename":"solar.log"}`)
+
+	log.Critical(format, v...)
+}
+
+func WriteErrorLog(format string, v ...interface{}) {
+	log := logs.NewLogger(10000)
+	log.SetLogger("file", `{"filename":"solar.log"}`)
+
+	log.Error(format, v...)
+}
+
+func WriteDebugLog(format string, v ...interface{}) {
+	log := logs.NewLogger(10000)
+	log.SetLogger("file", `{"filename":"solar.log"}`)
+
+	log.Debug(format, v...)
+}
+
+func WriteInfoLog(format string, v ...interface{}) {
+	log := logs.NewLogger(10000)
+	log.SetLogger("file", `{"filename":"solar.log"}`)
+
+	log.Info(format, v...)
 }
 
 ///////////////////////////////////////////////////////////////////////////////

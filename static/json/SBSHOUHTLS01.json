@@ -3,7 +3,7 @@
 	"CreateDate":"2015.09.24",
 	"Probe":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_ProbeAddr","_ProbeDataLen","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ProbeAddr","_ProbeDataLen","CRCL","CRCH"],
 			"DAddr_Len":1,	
 			"_FunctionCode":[33],
 			"_ProbeAddr":[32,1],
@@ -14,10 +14,8 @@
 			"ExpectedDataPointer_Len":0,
 			"ExpectedData_Len":1,
 			"ExpectedData":"S",
-
 			"SNPointer_Len":0,
 			"SN_Len":14,
-
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -27,7 +25,7 @@
 	"AddrAssign":null,
 	"_PowerOff":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOffCode","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOffCode","CRCL","CRCH"],
 			"DAddr_Len":1,
 			"_WriteCode":[19],
 			"_PowerCtlAddr":[16,66],
@@ -48,7 +46,7 @@
 	},
 	"_PowerOn":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOnCode","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_WriteCode","_PowerCtlAddr","_WriteWordsNumber","_PowerOnCode","CRCL","CRCH"],
 			"DAddr_Len":1,
 			"_WriteCode":[19],
 			"_PowerCtlAddr":[16,66],
@@ -69,7 +67,7 @@
 	},
 	"_ReadDataCommand":{	
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_ReadAddr","_RdWordsNmbr","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdWordsNmbr","CRCL","CRCH"],
 			"DAddr_Len":1,
 			"_FunctionCode":[3],
 			"_ReadAddr":[0,0],

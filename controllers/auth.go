@@ -94,6 +94,7 @@ func DoAuth(sess session.SessionStore) {
 		sess.Set(utils.SessAuth, "ok")
 		utils.UpdateSolarMapItem(utils.SessAuth, "ok")
 		fmt.Println("AUTH OK!")
+		utils.WriteDebugLog("AUTH OK!")
 	} else {
 		sess.Set(utils.SessAuth, "none")
 		utils.UpdateSolarMapItem(utils.SessAuth, "none")
@@ -108,6 +109,7 @@ func handleAuthOKState(ctrl *AuthController, sess session.SessionStore) {
 
 	ctrl.TplNames = "cmd2.tpl"
 	fmt.Println("Auth OK!")
+	utils.WriteDebugLog("AUTH already OK!")
 }
 
 func handleAuthSNState(ctrl *AuthController, sess session.SessionStore) {
@@ -115,6 +117,7 @@ func handleAuthSNState(ctrl *AuthController, sess session.SessionStore) {
 	cipher := ctrl.GetString("cipher")
 	fmt.Println("cipher=", cipher)
 
+	utils.WriteDebugLog("Auth: get cipher")
 	if len(cipher) == 0 {
 		ctrl.Data["command1"] = "cmd"
 		ctrl.Data["value1"] = "cipher"
@@ -143,6 +146,7 @@ func handleAuthInitState(ctrl *AuthController, sess session.SessionStore) {
 	sn := ctrl.GetString("sn")
 	fmt.Println("sn=", sn)
 
+	utils.WriteDebugLog("Auth: get sn")
 	if len(sn) == 0 {
 		ctrl.Data["command1"] = "cmd"
 		ctrl.Data["value1"] = "sn"
@@ -189,54 +193,8 @@ func handleAuthRequest(ctrl *AuthController) {
 ///////////////////////////////////////////////////////////////////////////////
 func (c *AuthController) Get() {
 	handleAuthRequest(c)
-	// sess := c.StartSession()
-	// state := sess.Get(SessAuth)
-	// //fmt.Println("auth get method:auth=", state)
-	// switch state {
-	// case "ok":
-	// 	// do nothing
-	// 	fmt.Println("auth already in OK state")
-	// case "sn":
-	// 	// get cipher
-	// 	cipher := c.GetString("cipher")
-	// 	fmt.Println("cipher=", cipher)
-	// 	DoSetCipher(cipher, sess)
-
-	// default:
-	// 	// get sn
-	// 	sn := c.GetString("sn")
-	// 	fmt.Println("sn=", sn)
-	// 	DoSetSN(sn, sess)
-	// }
-
-	// c.Data["command"] = "auth"
-	// c.Data["value"] = sess.Get(SessAuth)
-	// c.TplNames = "cmd.tpl"
 }
 
 func (c *AuthController) Post() {
 	handleAuthRequest(c)
-	// sess := c.StartSession()
-	// state := sess.Get(SessAuth)
-
-	// switch state {
-	// case "ok":
-	// 	// do nothing
-	// 	fmt.Println("auth already in OK state")
-	// case "sn":
-	// 	// get cipher
-	// 	cipher := c.GetString("cipher")
-	// 	fmt.Println("cipher=", cipher)
-	// 	DoSetCipher(cipher, sess)
-
-	// default:
-	// 	// get sn
-	// 	sn := c.GetString("sn")
-	// 	fmt.Println("sn=", sn)
-	// 	DoSetSN(sn, sess)
-	// }
-
-	// c.Data["command"] = "auth"
-	// c.Data["value"] = sess.Get(SessAuth)
-	// c.TplNames = "cmd.tpl"
 }

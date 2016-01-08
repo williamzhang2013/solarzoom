@@ -46,7 +46,7 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 		resultTbl := PeekRstTblName(content)
 		valueData := goBook.Get("Data").Get(resultTbl)
 		//valueData := 001
-		fmt.Println("valueData=", valueData)
+		//fmt.Println("valueData=", valueData)
 		// find DataOrder item, this item must be a string array
 		dataOrder, _ := valueData.Get("DataOrder").StringArray()
 		fmt.Println("dataOrder=", dataOrder)
@@ -91,17 +91,17 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 				} else {
 					cmdMode = 0
 				}
-				fmt.Println("key:=", v, ", data=", detailData, ", mode=", cmdMode, ", unit=", cmdUnit)
+				//fmt.Println("key:=", v, ", data=", detailData, ", mode=", cmdMode, ", unit=", cmdUnit)
 
 				if cmdMode == 0 {
 					// string
 					s := Byte2str(content[offset : offset+cmdLength*2])
-					fmt.Println(v, "=", s)
+					//fmt.Println(v, "=", s)
 					retMap[v] = s
 				} else {
 					// uint64
 					s := Byte2Uint(content[offset : offset+cmdLength*2])
-					fmt.Println(v, "=", s)
+					//fmt.Println(v, "=", s)
 					retMap[v] = float64(s) * cmdUnit
 				}
 

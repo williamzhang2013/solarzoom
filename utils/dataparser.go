@@ -225,7 +225,7 @@ func DoRunCalcFunc(fname string, unit *CalcUnit, value *simplejson.Json, dataMap
 	unit.Oper, _ = value.Get(FItem_Function).String()
 	reInitCalcUnit(unit)
 	genSubCmdUnit(value, unit)
-	fmt.Printf("function unit:%v\n", unit)
+	//fmt.Printf("function unit:%v\n", unit)
 
 	//traverse the sub command
 	for _, subCmd := range unit.SubCmd {

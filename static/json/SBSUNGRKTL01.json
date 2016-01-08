@@ -3,19 +3,19 @@
 	"CreateDate":"2015.11.11",
 	"Probe":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
 			"DAddr_Len":1,
-			"_FunctionCode":[4],
-			"_ReadAddr":[13,66],
-			"_RdRegNmbr":[60]
+			"_FunctionCode":[3],
+			"_ReadAddr":[19,141],
+			"_RdRegNmbr":[0,1]
 			},
 		"Response":{
-			"Response_Len":125,
-			"ExpectedDataPointer_Len":4,
-			"ExpectedData_Len":8,
-			"ExpectedData":[1,15,33,1,1,0,11,0],
-			"SNPointer_Len":103,
-			"SN_Len":20,
+			"Response_Len":7,
+			"ExpectedDataPointer_Len":3,
+			"ExpectedData_Len":2,
+			"ExpectedData":[0,207],
+			"SNPointer_Len":null,
+			"SN_Len":null,
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -25,7 +25,7 @@
 	"AddrAssign":null,
 	"_PowerOn":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_WrtAddress","_WrtData","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_WrtAddress","_WrtData","CRCL","CRCH"],
 			"DAddr_Len":1,
 			"_FunctionCode":[6],
 			"_WrtAddress":[19,141],
@@ -45,7 +45,7 @@
 		},
 	"_PowerOff":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_WrtAddress","_WrtData","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_WrtAddress","_WrtData","CRCL","CRCH"],
 			"DAddr_Len":1,
 			"_FunctionCode":[6],
 			"_WrtAddress":[19,141],
@@ -65,7 +65,8 @@
 		},
 	"_SetSystemTime":{
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_WrtStartAddress","_DataLenInWord","_DataLenInByte","_SystemDateTime","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_WrtStartAddress","_DataLenInWord","_DataLenInByte","_SystemDateTime","CRCL","CRCH"],
+			"DAddr_Len":1,
 			"_FunctionCode":[16],
 			"_WrtStartAddress":[19,135],
 			"_DataLenInWord":6,
@@ -84,11 +85,31 @@
 			"FailChkData":null			
 			}
 		},
+	"_ReadSN":{
+		"Command":{
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
+			"DAddr_Len":1,
+			"_FunctionCode":[4],
+			"_ReadAddr":[19,125],
+			"_RdRegNmbr":[0,10]
+			},
+		"Response":{
+			"Response_Len":25,
+			"ExpectedDataPointer_Len":null,
+			"ExpectedData_Len":null,
+			"ExpectedData":null,
+			"SNPointer_Len":3,
+			"SN_Len":20,
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+	},
 	"_ReadDataCommand":{	
 		"Command":{
-			"Code_Order":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
 			"DAddr_Len":1,
-			"_FunctionCode":[3],
+			"_FunctionCode":[4],
 			"_ReadAddr":[19,137],
 			"_RdRegNmbr":[0,115]
 			},
@@ -105,17 +126,20 @@
 			}
 		},
 	"BATCH":[
-		{
-			"CmdRsltTblName":"KTL01",
+		{	"CmdRsltTblName":"KTL01",
 			"CmdOrder":["_ReadDataCommand"],
 			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
 			"RecycleTime":300
 			},
-		{
-			"CmdRsltTblName":"STIME",
+		{	"CmdRsltTblName":"STIME",
 			"CmdOrder":["_SetSystemTime"],
 			"RsltOrder":null,
 			"RecycleTime":14400
+			},
+		{	"CmdRsltTblName":"READSN",
+			"CmdOrder":["_ReadSN"],
+			"RsltOrder":null,
+			"RecycleTime":600
 		}
 	]
 }

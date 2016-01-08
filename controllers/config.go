@@ -36,6 +36,7 @@ func handleConfigRequest(ctrl *ConfigController) {
 	} else if utils.IsFileExist(FILE_PREFIX + filename + FILE_JSON) {
 		// find the file
 		http.ServeFile(ctrl.Ctx.ResponseWriter, ctrl.Ctx.Request, FILE_PREFIX+filename+FILE_JSON)
+		utils.WriteDebugLog("Send back the device style file: %s", FILE_PREFIX+filename+FILE_JSON)
 		//ctrl.Data["value"] = 0
 	} else {
 		ctrl.Data["value"] = 2
@@ -54,6 +55,7 @@ func (ctrl *ConfigController) Get() {
 
 	if state != "ok" {
 		// redirect auth
+		utils.WriteDebugLog("Config: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		handleConfigRequest(ctrl)
@@ -69,6 +71,7 @@ func (ctrl *ConfigController) Post() {
 	//fmt.Println("auth state=", state)
 
 	if state != "ok" {
+		utils.WriteDebugLog("Config: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		handleConfigRequest(ctrl)
@@ -83,9 +86,11 @@ func (ctrl *ConfigController) SyncTime() {
 	fmt.Println("auth state=", state)
 
 	if state != "ok" {
+		utils.WriteDebugLog("Config: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		fmt.Println("SyncTime")
+		utils.WriteDebugLog("SyncTime")
 
 		curtime := time.Now().Unix()
 		ctrl.Data["command1"] = "cmd"
@@ -105,10 +110,12 @@ func (ctrl *ConfigController) GetIVTTable() {
 	//fmt.Println("auth state=", state)
 
 	if state != "ok" {
+		utils.WriteDebugLog("Config: Redirect AUTH")
 		ctrl.Redirect(URLAuth, 302)
 	} else {
 		fmt.Println("Get Inverter Config File!")
 
+		utils.WriteDebugLog("Get Inverter Table: %s", IVT_CONFIG_JSON_FILE)
 		http.ServeFile(ctrl.Ctx.ResponseWriter, ctrl.Ctx.Request, IVT_CONFIG_JSON_FILE)
 
 		ctrl.Data["value"] = 0
@@ -116,18 +123,3 @@ func (ctrl *ConfigController) GetIVTTable() {
 		ctrl.TplNames = "cmd.tpl"
 	}
 }
-
-// func (c *ConfigController) GetHybridIVTTable() {
-// 	// sess := c.StartSession()
-// 	// state := sess.Get(SessAuth)
-// 	state := utils.GetSolarMapItem(utils.SessAuth)
-// 	fmt.Println("auth state=", state)
-
-// 	if state != "ok" {
-// 		c.Redirect(URLAuth, 302)
-// 	} else {
-// 		fmt.Println("GetHybridIVTTable")
-
-// 		c.TplNames = "cmd.tpl"
-// 	}
-// }

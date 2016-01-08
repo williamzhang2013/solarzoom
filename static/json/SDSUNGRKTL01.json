@@ -55,29 +55,79 @@
 			"__DataCRC":{"Len":2}
 		}
 		},
-	"CheckCmd":{
-		"_OutputCheckA":{
-			"Check":["_OutputStyle",1],
-			"_VacRate":1
-			},
-		"_OutputCheckB":{
-			"Check":["_OutputStyle",2],
-			"_VacRate":0.57735
-			},
-		"_OffLineCheckA":{
-			"Check":["_DeviceStatus",32768],
-			"WorkStatus":"Off"
-			},
-		"_OffLineCheckB":{
-			"AndCheck":["_WorkStatus",262144],
-			"WorkStatus":"Off"
-			},
-		"_FailCheck":{
-			"AndCheck":["_WorkStatus",15872],
-			"ErroMessage":["_OutputStyle","_DeviceStatus","_StatusDateTime","_StatusData","_ErroMSG","_ModuleTemperature","_ToGroundImpedence","_Leakage","_WorkStatus"],
-			"WorkStatus":"Fault"
-		}
+	"_Default0":{
+		"Function":"GetDefault",
+		"Default":0
+		},			
+	"_Default1":{
+		"Function":"GetDefault",
+		"Default":1
+		},		
+	"_Default2":{
+		"Function":"GetDefault",
+		"Default":2
+		},	
+	"_Default057735":{
+		"Function":"GetDefault",
+		"Default":0.57735
 		},
+	"__VacRate1":{
+		"Function":"Equal",
+		"Items":["_OutputStyle", "_Default1", "_Default1", "_Default0"]
+	},
+	"__VacRate2":{
+		"Function":"Equal",
+		"Items":["_OutputStyle", "_Default2", "_Default057735", "_Default0"]
+	},	
+	"_VacRate":{
+		"Function":"Sum",
+		"Items":["__VacRate1", "__VacRate2"]
+		},
+	"_Default32768":{
+		"Function":"GetDefault",
+		"Default":32768
+		},
+	"_Default262144":{
+		"Function":"GetDefault",
+		"Default":262144
+		},
+	"_Default15872":{
+		"Function":"GetDefault",
+		"Default":15872
+		},							
+	"_DefaultNil":{
+		"Function":"GetDefault",
+		"Default":""
+		},
+	"_DefaultFault":{
+		"Function":"GetDefault",
+		"Default":"Fault"
+		},
+	"_OffLineCheckA":{
+		"Function":"Equal",
+		"Items":["_DeviceStatus", "_Default32768", "_DefaultFault", "_DefaultNil"]
+		},
+	"_OffLineCheckB":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default262144", "_DefaultFault", "_DefaultNil"]
+		},
+	"_FailCheck":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default15872", "_DefaultFault", "_DefaultNil"]
+		},		
+	"WorkStatus":{
+		"Function":"NVStrCat",
+		"Items":["_OffLineCheckA", "_OffLineCheckB", "_FailCheck"]
+		},
+	"_ErroMessage":{
+		"Function":"NVStrCat",
+		"Items":["_OutputStyle","_DeviceStatus","_StatusDateTime","_StatusData","_ErroMSG","_ModuleTemperature","_ToGroundImpedence","_Leakage","_WorkStatus"]
+		},
+	"ErroMessage":{
+		"Function":"Equal",
+		"Items":["_WorkStatus", "_Default15872", "_ErroMessage", "_DefaultNil"]
+		},	
+
 	"VacR":{
 		"Function":"Multiply",
 		"Items":["_VacA","_VacRate"],
@@ -178,10 +228,14 @@
 		"Divisor":"DCPowerTotal",
 		"Digit":1
 		},
+	"_Default12000":{
+		"Function":"GetDefault",
+		"Default":12000.0
+		},		
 	"SPLPEnergy":{
 		"Function":"Division",
 		"Dividend":"ACActivePowerTotal",
-		"Divisor":12000,
+		"Divisor":"_Default12000",
 		"Digit":1
 	}
 }

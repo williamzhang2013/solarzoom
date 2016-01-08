@@ -20,7 +20,7 @@ func init() {
 	// beego.Router("/auth", &controllers.AuthController{})
 	// beego.Router("/login", &controllers.LoginController{})
 	// beego.Router("/login/judge", &controllers.LoginController{}, "*:Judge")
-	// beego.Router("/upload", &controllers.UploadController{})
+	beego.Router("/upload", &controllers.UploadController{})
 	// beego.Router("/download", &controllers.DownloadController{})
 	// beego.Router("/data", &controllers.DataController{})
 	// beego.Router("/config", &controllers.ConfigController{})
