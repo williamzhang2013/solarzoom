@@ -558,31 +558,43 @@ func handleDataRequest(ctrl *DataController) {
 		item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
 	}
 
-	_, err = models.AddInverterRunData(item)
-	if err != nil {
-		beego.Error("write database User error!")
-	}
+	// _, err = models.AddInverterRunData(item)
+	// if err != nil {
+	// 	beego.Error("write database User error!")
+	// }
 
 	// write day table
-	var dayTableId int64
-	var dayTableErr error
+	// var dayTableId int64
+	// var dayTableErr error
 
-	if dayTableId, dayTableErr = models.GetPvInverterTodayRecord(item.IvtId); dayTableErr != nil {
-		// update
-		models.AddPvInverterDayData(item.IvtId)
-	}
-	hisPower, _ := models.GetPVInverterTodayHisPower(item.IvtId)
-	thisPower := fmt.Sprintf("#%v:%v:%v", item.BatchOrder, item.SmplTime, item.DcpowerTotal)
-	hisPower = hisPower + thisPower
-	//fmt.Printf("id=%v, power=%v, enertytotal=%v, energyday=%v, content=%v\n", dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, hisPower)
-	if err := models.UpdatePvInverterTodayRecord(dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, 0, hisPower); err != nil {
-		fmt.Println("Something wrong!", err.Error())
+	// if dayTableId, dayTableErr = models.GetPvInverterTodayRecord(item.IvtId); dayTableErr != nil {
+	// 	// update
+	// 	models.AddPvInverterDayData(item.IvtId)
+	// }
+	// hisPower, _ := models.GetPVInverterTodayHisPower(item.IvtId)
+	// thisPower := fmt.Sprintf("#%v:%v:%v", item.BatchOrder, item.SmplTime, item.DcpowerTotal)
+	// hisPower = hisPower + thisPower
+	// //fmt.Printf("id=%v, power=%v, enertytotal=%v, energyday=%v, content=%v\n", dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, hisPower)
+	// if err := models.UpdatePvInverterTodayRecord(dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, 0, hisPower); err != nil {
+	// 	fmt.Println("Something wrong!", err.Error())
 
-	}
+	// }
 
+	dayRecord := models.NewPvInverterDayData()
+	dayRecord.IvtId = item.IvtId
+	dayRecord.Day = models.CalcDayTableDayItem(item.SmplTime)
+	dayRecord.AcActivePowerTotal = item.AcActivePowerTotal
+	dayRecord.EnergyTotal = item.EnergyTotal
+	dayRecord.EnergyToday = item.EnergyDay
+	dayRecord.PowerContent = fmt.Sprintf("#%v:%v:%v111", item.BatchOrder, item.SmplTime, item.DcpowerTotal)
+
+	fmt.Println("dayRecord.PowerContent=", dayRecord.PowerContent)
 	// careate the new table
 	// item.TableName()
-	// models.GenPvRunDataTable()
+	//models.CreateDayTableBySQL()
+	//models.InsertDayTableItemBySQL()
+	models.InsertRunDataTableItemBySQL(item)
+	models.UpdateDayTableRecordBySQL(dayRecord)
 
 	ctrl.Data["command1"] = "cmd"
 	ctrl.Data["value1"] = "data"

@@ -5,6 +5,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"solarzoom/models"
+	"time"
 )
 
 func init() {
@@ -26,4 +28,8 @@ func CreateTable() {
 	if err != nil {
 		beego.Error(err)
 	}
+
+	// create table by SQL
+	//models.CreateDayTableBySQL()
+	models.CreateRunDataTableBySQL(time.Now().Unix())
 }
