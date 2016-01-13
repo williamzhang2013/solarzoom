@@ -174,7 +174,7 @@ func CreateDayTableBySQL(t int64) {
 	s = fmt.Sprintf("%s `ac_active_power_total` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '实时总功率',", s)
 	s = fmt.Sprintf("%s `energy_today` float(8,2) NOT NULL DEFAULT '0.00' COMMENT '当日实时总发电量',", s)
 	s = fmt.Sprintf("%s `energy_total` double(10,2) NOT NULL DEFAULT '0.00' COMMENT '总发电量',", s)
-	s = fmt.Sprintf("%s `power_content` varchar(255) NOT NULL DEFAULT '' COMMENT '当日历史功率',", s)
+	s = fmt.Sprintf("%s `power_content` text NOT NULL DEFAULT '' COMMENT '当日历史功率',", s)
 	s = fmt.Sprintf("%s `nominal_hours` int(11) NOT NULL DEFAULT '0' COMMENT '名义发电小时数',", s)
 	s = fmt.Sprintf("%s `today_hours` float(5,3) NOT NULL DEFAULT '0.000' COMMENT '当日有效发电小时数',", s)
 	s = fmt.Sprintf("%s `avg_direct_power` float(8,1) NOT NULL DEFAULT '0.0' COMMENT '当日有效直流平均功率',", s)
@@ -203,7 +203,7 @@ func DoInsertDayTableRecordBySQL(r *PvInverterDayData) {
 	s = fmt.Sprintf("%s (`ivt_id`, `input_time`, `day`, `data_validate`, `ac_active_power_total`, `energy_today`, `energy_total`, `power_content`, `nominal_hours`, `today_hours`, `avg_direct_power`, `avg_alternating_power`, `avg_efficiency`)", s)
 	s = fmt.Sprintf("%s VALUES ", s)
 	s = fmt.Sprintf("%s ('%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v', '%v');", s, r.IvtId, time.Now().Unix(), r.Day, r.DataValidate, r.AcActivePowerTotal, r.EnergyToday, r.EnergyTotal, r.PowerContent, r.NominalHours, r.TodayHours, r.AvgDirectPower, r.AvgAlternatingPower, r.AvgEfficiency)
-	fmt.Println("s=", s)
+	//fmt.Println("s=", s)
 
 	// Run the SQL
 	o := orm.NewOrm()
@@ -245,7 +245,7 @@ func DoUpdateDayTableItemBySQL(r *PvInverterDayData) error {
 	s = fmt.Sprintf("%s `avg_alternating_power` = '%v',", s, r.AvgAlternatingPower)
 	s = fmt.Sprintf("%s `avg_efficiency` = '%v'", s, r.AvgEfficiency)
 	s = fmt.Sprintf("%s WHERE (`ivt_id` = %d AND `day` = %v);", s, r.IvtId, r.Day)
-	fmt.Println("s=", s)
+	//fmt.Println("s=", s)
 
 	o := orm.NewOrm()
 	_, err := o.Raw(s).Exec()
@@ -293,6 +293,23 @@ func SelectDayTableRecordBySQL(r *PvInverterDayData) error {
 	}
 
 	return err
+}
+
+func GetPowerContentInDayTable(r *PvInverterDayData) (string, error) {
+	tableName := getDayTableName(r.Day)
+
+	s := fmt.Sprintf("SELECT * FROM `%s`", tableName)
+	s = fmt.Sprintf("%s WHERE (`ivt_id` = %d AND `day` = %v);", s, r.IvtId, r.Day)
+
+	var selRecord PvInverterDayData
+	o := orm.NewOrm()
+	err := o.Raw(s).QueryRow(&selRecord)
+
+	if err == nil {
+		return selRecord.PowerContent, nil
+	}
+
+	return "", err
 }
 
 // for solarzoom API

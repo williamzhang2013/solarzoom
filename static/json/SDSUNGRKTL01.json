@@ -1,18 +1,71 @@
 {	"StyleCode":["SD","SUNGR","KTL01"],
-	"StyleVersion":"V01.03.1",
+	"StyleVersion":"V01.03.3",
 	"CreateDate":"2015.11.11",
 	"NetworkStyle":"Multiple",
 
 	"Data":{
 		"KTL01":{
-			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr","__DataHead","_OutputStyle","EnergyDay","EnergyTotal","RunTimeTotal","InternalTemperature","__RsrvDataA","VdcPV1","IdcPV1","VdcPV2","IdcPV2","VdcPV3","IdcPV3","DCPowerTotal","_VacA","_VacB","_VacC","IacR","IacS","IacT","__RsrvDataB","ACActivePowerTotal","__ACReactivePowerTotal","_PF","Fgrid","__RsrvDataC","__DeviceStatus","__StatusDateTime","_StatusData","__RsrvDataD","__NorminalAPower","_ErroMSG","__RsrvDataE","__ModuleTemperature","__RsrvDataF","__ToGroundImpedence","__Leakage","__RsrvDataG","_WorkStatus","__RsrvDataH","__RunTimeDay","__CurrentCountry","VdcPV4","IdcPV4","__DataCRC","CRCL","CRCH"],
-			"DVCSN_Len":{"Len":20},
+			"DataOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN_Len","BatchOrder","SmplTime","DAddr",
+			"__DataHead",
+			"_OutputStyle",
+			"EnergyDay",
+			"_EnergyTotalL",
+			"_EnergyTotalH",
+			"_RunTimeTotalL",
+			"_RunTimeTotalH",
+			"InternalTemperature",
+			"__RsrvDataA",
+			"VdcPV1",
+			"IdcPV1",
+			"VdcPV2",
+			"IdcPV2",
+			"VdcPV3",
+			"IdcPV3",
+			"_DCPowerTotalL",
+			"_DCPowerTotalH",
+			"_VacA",
+			"_VacB",
+			"_VacC",
+			"IacR",
+			"IacS",
+			"IacT",
+			"__RsrvDataB",
+			"_ACActivePowerTotalL",
+			"_ACActivePowerTotalH",
+			"__ACReactivePowerTotal",
+			"_PF",
+			"Fgrid",
+			"__RsrvDataC",
+			"_DeviceStatus",
+			"_StatusDateTime",
+			"_StatusData",
+			"__RsrvDataD",
+			"__NorminalAPower",
+			"_ErroMSG",
+			"__RsrvDataE",
+			"_ModuleTemperature",
+			"__RsrvDataF",
+			"_ToGroundImpedence",
+			"_Leakage",
+			"__RsrvDataG",
+			"_WorkStatusL",
+			"_WorkStatusH",
+			"__RsrvDataH",
+			"__RunTimeDay",
+			"__CurrentCountry",
+			"VdcPV4",
+			"IdcPV4",
+			"__DataCRC",
+			"CRCL","CRCH"],
 
-			"__DataHead":{"Len":3},
+			"DVCSN_Len":{"Len":20},
+			"__DataHead":{"Len":3,"Digit":1},
 			"_OutputStyle":{"Len":2,"Digit":1},
 			"EnergyDay":{"Len":2,"Digit":0.1},
-			"EnergyTotal":{"Len":4,"Digit":1},
-			"RunTimeTotal":{"Len":4,"Digit":1},
+			"_EnergyTotalL":{"Len":2,"Digit":1},
+			"_EnergyTotalH":{"Len":2,"Digit":1},
+			"_RunTimeTotalL":{"Len":2,"Digit":1},
+			"_RunTimeTotalH":{"Len":2,"Digit":1},
 			"InternalTemperature":{"Len":2,"Digit":0.1},
 			"__RsrvDataA":{"Len":4},
 			"VdcPV1":{"Len":2,"Digit":0.1},
@@ -21,7 +74,8 @@
 			"IdcPV2":{"Len":2,"Digit":0.1},
 			"VdcPV3":{"Len":2,"Digit":0.1},
 			"IdcPV3":{"Len":2,"Digit":0.1},
-			"DCPowerTotal":{"Len":4,"Digit":1},
+			"_DCPowerTotalL":{"Len":2,"Digit":1},
+			"_DCPowerTotalH":{"Len":2,"Digit":1},
 			"_VacA":{"Len":2,"Digit":0.1},
 			"_VacB":{"Len":2,"Digit":0.1},
 			"_VacC":{"Len":2,"Digit":0.1},
@@ -29,7 +83,8 @@
 			"IacS":{"Len":2,"Digit":0.1},
 			"IacT":{"Len":2,"Digit":0.1},
 			"__RsrvDataB":{"Len":12},
-			"ACActivePowerTotal":{"Len":4,"Digit":1},
+			"_ACActivePowerTotalL":{"Len":2,"Digit":1},
+			"_ACActivePowerTotalH":{"Len":2,"Digit":1},
 			"__ACReactivePowerTotal":{"Len":4},
 			"_PF":{"Len":2},
 			"Fgrid":{"Len":2,"Digit":0.1},
@@ -46,23 +101,24 @@
 			"_ToGroundImpedence":{"Len":2},
 			"_Leakage":{"Len":2},
 			"__RsrvDataG":{"Len":16},
-			"_WorkStatus":{"Len":4,"Digit":1},
+			"_WorkStatusL":{"Len":2,"Digit":1},
+			"_WorkStatusH":{"Len":2,"Digit":1},
 			"__RsrvDataH":{"Len":60},
 			"__RunTimeDay":{"Len":2},
 			"__CurrentCountry":{"Len":2},
 			"VdcPV4":{"Len":2,"Digit":0.1},
 			"IdcPV4":{"Len":2,"Digit":0.1},
-			"__DataCRC":{"Len":2}
+			"__DataCRC":{"Len":2,"Digit":1}
 		}
 		},
 	"_Default0":{
 		"Function":"GetDefault",
 		"Default":0
-		},			
+		},					
 	"_Default1":{
 		"Function":"GetDefault",
 		"Default":1
-		},		
+		},				
 	"_Default2":{
 		"Function":"GetDefault",
 		"Default":2
@@ -81,7 +137,8 @@
 	},	
 	"_VacRate":{
 		"Function":"Sum",
-		"Items":["__VacRate1", "__VacRate2"]
+		"Items":["__VacRate1", "__VacRate2"],
+		"Digit":1
 		},
 	"_Default32768":{
 		"Function":"GetDefault",
@@ -103,13 +160,39 @@
 		"Function":"GetDefault",
 		"Default":"Fault"
 		},
+	"_DefaultOff":{
+		"Function":"GetDefault",
+		"Default":"Off"
+		},
+
+	"EnergyTotal":{
+		"Function":"H_L",
+		"H":"_EnergyTotalH", "L":"_EnergyTotalL", "N":"_Default2", "Digit":1
+		},
+	"RunTimeTotal":{
+		"Function":"H_L",
+		"H":"_RunTimeTotalH", "L":"_RunTimeTotalL", "N":"_Default2", "Digit":1
+		},
+	"DCPowerTotal":{
+		"Function":"H_L",
+		"H":"_DCPowerTotalH", "L":"_DCPowerTotalL", "N":"_Default2", "Digit":1
+		},
+	"ACActivePowerTotal":{
+		"Function":"H_L",
+		"H":"_ACActivePowerTotalH", "L":"_ACActivePowerTotalL", "N":"_Default2", "Digit":1
+		},
+	"_WorkStatus":{
+		"Function":"H_L",
+		"H":"_WorkStatusH", "L":"_WorkStatusL", "N":"_Default2", "Digit":1
+		},
+
 	"_OffLineCheckA":{
 		"Function":"Equal",
-		"Items":["_DeviceStatus", "_Default32768", "_DefaultFault", "_DefaultNil"]
+		"Items":["_DeviceStatus", "_Default32768", "_DefaultOff", "_DefaultNil"]
 		},
 	"_OffLineCheckB":{
 		"Function":"Equal",
-		"Items":["_WorkStatus", "_Default262144", "_DefaultFault", "_DefaultNil"]
+		"Items":["_WorkStatus", "_Default262144", "_DefaultOff", "_DefaultNil"]
 		},
 	"_FailCheck":{
 		"Function":"Equal",

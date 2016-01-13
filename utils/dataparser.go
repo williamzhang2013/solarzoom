@@ -28,6 +28,7 @@ const FItem_Dividend string = "Dividend"
 const FItem_Divisor string = "Divisor"
 const FItem_H string = "H"
 const FItem_L string = "L"
+const FItem_N string = "N"
 const FItem_Default string = "Default"
 
 const Cmd_WorkStatus string = "WorkStatus"
@@ -156,6 +157,9 @@ func genSubCmdUnit(v *simplejson.Json, data *CalcUnit) {
 		data.SubCmd = append(data.SubCmd, item)
 
 		item, _ = v.Get(FItem_L).String()
+		data.SubCmd = append(data.SubCmd, item)
+
+		item, _ = v.Get(FItem_N).String()
 		data.SubCmd = append(data.SubCmd, item)
 	case ucmd.FNAME_GDEF:
 		var err error

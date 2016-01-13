@@ -1,6 +1,8 @@
 {	"StyleCode":["SB","OMNIK","3P111"],
-	"StyleVersion":"V01.03.2",
+	"StyleVersion":"V01.03.3",
 	"CreateDate":"2015.12.03",
+
+	"DVCSN_Len":16,
 	"Probe":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","DAddr_Len","_ControlCode","_FunctionCode","_DataLen","ChkSumL","ChkSumH"],

@@ -7,11 +7,11 @@ import (
 type Merge struct {
 	h     uint64 // high
 	l     uint64 // low
-	n     uint8  // move bytes
+	n     uint64 // move bytes
 	digit float64
 }
 
-func NewMerge(h, l uint64, n uint8, digit float64) *Merge {
+func NewMerge(h, l uint64, n uint64, digit float64) *Merge {
 	return &Merge{h, l, n, digit}
 }
 

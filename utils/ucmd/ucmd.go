@@ -26,7 +26,7 @@ func Run(source string, data interface{}, digit float64) interface{} {
 	switch source {
 	case FNAME_HL:
 		para, _ := data.([]uint64)
-		cmd = &Merge{para[0], para[1], 8, digit}
+		cmd = &Merge{para[0], para[1], para[2], digit}
 	case FNAME_SUM:
 		para, _ := data.([]float64)
 		cmd = &Sum{para, digit}
@@ -48,11 +48,25 @@ func Run(source string, data interface{}, digit float64) interface{} {
 	case FNAME_GDEF:
 		cmd = &GetDefault{data}
 	case FNAME_ISEQUAL:
+		var para2 interface{}
+		var para3 interface{}
+		var ok bool
 		para, _ := data.([]interface{})
 		para0, _ := para[0].(float64)
 		para1, _ := para[1].(float64)
-		para2, _ := para[2].(string)
-		para3, _ := para[3].(string)
+
+		para2, ok = para[2].(string)
+		if !ok {
+			para2, _ = para[2].(float64)
+		}
+
+		para3, ok = para[3].(string)
+		if !ok {
+			para3, _ = para[3].(float64)
+		}
+
+		//para2, _ := para[2].(string)
+		//para3, _ := para[3].(string)
 
 		//fmt.Printf("Run equal cmd: para0=%v, para1=%v, para2=%v, para3=%v\n", para0, para1, para2, para3)
 		//fmt.Println("data value=", data)

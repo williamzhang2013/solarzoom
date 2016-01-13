@@ -55,28 +55,23 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 		for _, v := range dataOrder {
 			//fmt.Println(i, ": value=", v)
 			// first, travse the commandArray array to get the length
-			fmt.Printf("%s=", v)
+			//fmt.Printf("%s=", v)
 			//cmdLength = getCmdLength(v)
 			cmdLength, cmdMode = getCmdInfo(v)
+			//fmt.Printf("length=%v, mode=%v", cmdLength, cmdMode)
 			if cmdLength != 0 {
 				// logic command
 				if cmdMode == 0 {
 					// string
 					s := Byte2str(content[offset : offset+cmdLength*2])
-					fmt.Println(v, "=", s)
+					//fmt.Println(v, "=", s)
 					retMap[v] = s
 				} else {
 					// uint64
 					s := Byte2Uint(content[offset : offset+cmdLength*2])
-					fmt.Println(v, "=", s)
+					//fmt.Println(v, "=", s)
 					retMap[v] = s
 				}
-				// for i := 0; i < cmdLength; i++ {
-				// 	tmp := string(content[offset+i*2]) + string(content[offset+i*2+1])
-				// 	if ver, err := strconv.ParseUint(tmp, 16, 32); err == nil {
-				// 		fmt.Printf("%s, v=%d ", string(ver), ver)
-				// 	}
-				// }
 				offset += cmdLength * 2
 			} else {
 				detailData := valueData.Get(v) //{}interface
@@ -104,17 +99,8 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 					//fmt.Println(v, "=", s)
 					retMap[v] = float64(s) * cmdUnit
 				}
-
-				// for i := 0; i < cmdLength; i++ {
-				// 	tmp := string(content[offset+i*2]) + string(content[offset+i*2+1])
-				// 	if ver, err := strconv.ParseUint(tmp, 16, 32); err == nil {
-				// 		fmt.Printf("%s v=%d", string(ver), ver)
-				// 	}
-				// 	//fmt.Printf("%s ", content[offset+i])
-				// }
 				offset += cmdLength * 2
 			}
-			fmt.Println("")
 		}
 	} else {
 		fmt.Printf("Parse JSON file %s Error!\n", fname)

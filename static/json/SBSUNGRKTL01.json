@@ -1,6 +1,8 @@
 {	"StyleCode":["SB","SUNGR","KTL01"],
-	"StyleVersion":"V01.03.2",
+	"StyleVersion":"V01.03.3",
 	"CreateDate":"2015.11.11",
+
+	"DVCSN_Len":20,
 	"Probe":{
 		"Command":{
 			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],

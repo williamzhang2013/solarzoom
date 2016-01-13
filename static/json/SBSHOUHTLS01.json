@@ -1,6 +1,8 @@
 {	"StyleCode":["SB","SHOUH","TLS01"],
-	"StyleVersion":"V01.03.2",
+	"StyleVersion":"V01.03.3",
 	"CreateDate":"2015.09.24",
+
+	"DVCSN_Len":14,
 	"Probe":{
 		"Command":{
 			"CodeOrder":["DAddr_Len","_FunctionCode","_ProbeAddr","_ProbeDataLen","CRCL","CRCH"],
