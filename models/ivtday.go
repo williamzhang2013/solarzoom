@@ -5,9 +5,9 @@ import (
 	//"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"solarzoom/utils"
 	"strconv"
 	"time"
-	"solarzoom/utils"
 )
 
 type PvInverterDayData struct {
@@ -148,13 +148,12 @@ func UpdateRecord(id int64, valid int32, hours, dpwr, apwr, efficiency float32) 
 	return nil
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //                             USE SQL Sentence                              //
 ///////////////////////////////////////////////////////////////////////////////
 // test for SQL sentence
 func getDayTableName(t int64) string {
-	year := time.Unix(t, 0).Year();
+	year := time.Unix(t, 0).Year()
 
 	s := fmt.Sprintf("%s%d", DAY_TABLE_PREFIX, year)
 	return s
@@ -168,33 +167,33 @@ func CreateDayTableBySQL(t int64) {
 	s := "CREATE TABLE IF NOT EXISTS"
 	s = fmt.Sprintf("%s `%s`", s, tableName)
 	s = fmt.Sprintf("%s ( `id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,", s)
-	s = fmt.Sprintf("%s `ivt_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Äæ±äÆ÷ID',", s)
-	s = fmt.Sprintf("%s `input_time` int(10) DEFAULT NULL DEFAULT '0' COMMENT '×îºó¸üĞÂÊ±¼ä',", s)
-	s = fmt.Sprintf("%s `day` int(10) NOT NULL DEFAULT '0' COMMENT 'Êı¾İÈÕÆÚ',", s)
-	s = fmt.Sprintf("%s `data_validate` smallint(1) NOT NULL DEFAULT '0' COMMENT 'Êı¾İÍêÕûĞÔÑéËã',",s)
-	s = fmt.Sprintf("%s `ac_active_power_total` float(8,2) NOT NULL DEFAULT '0.00' COMMENT 'ÊµÊ±×Ü¹¦ÂÊ',", s)
-	s = fmt.Sprintf("%s `energy_today` float(8,2) NOT NULL DEFAULT '0.00' COMMENT 'µ±ÈÕÊµÊ±×Ü·¢µçÁ¿',", s)
-	s = fmt.Sprintf("%s `energy_total` double(10,2) NOT NULL DEFAULT '0.00' COMMENT '×Ü·¢µçÁ¿',", s)
-	s = fmt.Sprintf("%s `power_content` varchar(255) NOT NULL DEFAULT '' COMMENT 'µ±ÈÕÀúÊ·¹¦ÂÊ',", s)
-	s = fmt.Sprintf("%s `nominal_hours` int(11) NOT NULL DEFAULT '0' COMMENT 'ÃûÒå·¢µçĞ¡Ê±Êı',", s)
-	s = fmt.Sprintf("%s `today_hours` float(5,3) NOT NULL DEFAULT '0.000' COMMENT 'µ±ÈÕÓĞĞ§·¢µçĞ¡Ê±Êı',", s)
-	s = fmt.Sprintf("%s `avg_direct_power` float(8,1) NOT NULL DEFAULT '0.0' COMMENT 'µ±ÈÕÓĞĞ§Ö±Á÷Æ½¾ù¹¦ÂÊ',", s)
-	s = fmt.Sprintf("%s `avg_alternating_power` float(8,1) NOT NULL DEFAULT '0.0' COMMENT 'µ±ÈÕ½ØÖ¹µ½Ä¿Ç°µÄÓĞĞ§½»Á÷Æ½¾ù¹¦ÂÊ',", s)
-	s = fmt.Sprintf("%s `avg_efficiency` float(4,3) NOT NULL DEFAULT '0.000' COMMENT 'µ±ÈÕ½ØÖ¹µ½Ä¿Ç°µÄÄæ±äÆ÷Æ½¾ùĞ§ÂÊ')", s)
-	s = fmt.Sprintf("%s ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='%dÄêËùÓĞÄæ±äÆ÷Ã¿ÈÕÊı¾İÍ³¼Æ±í';", s, year)
+	s = fmt.Sprintf("%s `ivt_id` int(11) NOT NULL DEFAULT '0' COMMENT 'é€†å˜å™¨ID',", s)
+	s = fmt.Sprintf("%s `input_time` int(10) DEFAULT NULL DEFAULT '0' COMMENT 'æœ€åæ›´æ–°æ—¶é—´',", s)
+	s = fmt.Sprintf("%s `day` int(10) NOT NULL DEFAULT '0' COMMENT 'æ•°æ®æ—¥æœŸ',", s)
+	s = fmt.Sprintf("%s `data_validate` smallint(1) NOT NULL DEFAULT '0' COMMENT 'æ•°æ®å®Œæ•´æ€§éªŒç®—',", s)
+	s = fmt.Sprintf("%s `ac_active_power_total` float(8,2) NOT NULL DEFAULT '0.00' COMMENT 'å®æ—¶æ€»åŠŸç‡',", s)
+	s = fmt.Sprintf("%s `energy_today` float(8,2) NOT NULL DEFAULT '0.00' COMMENT 'å½“æ—¥å®æ—¶æ€»å‘ç”µé‡',", s)
+	s = fmt.Sprintf("%s `energy_total` double(10,2) NOT NULL DEFAULT '0.00' COMMENT 'æ€»å‘ç”µé‡',", s)
+	s = fmt.Sprintf("%s `power_content` varchar(255) NOT NULL DEFAULT '' COMMENT 'å½“æ—¥å†å²åŠŸç‡',", s)
+	s = fmt.Sprintf("%s `nominal_hours` int(11) NOT NULL DEFAULT '0' COMMENT 'åä¹‰å‘ç”µå°æ—¶æ•°',", s)
+	s = fmt.Sprintf("%s `today_hours` float(5,3) NOT NULL DEFAULT '0.000' COMMENT 'å½“æ—¥æœ‰æ•ˆå‘ç”µå°æ—¶æ•°',", s)
+	s = fmt.Sprintf("%s `avg_direct_power` float(8,1) NOT NULL DEFAULT '0.0' COMMENT 'å½“æ—¥æœ‰æ•ˆç›´æµå¹³å‡åŠŸç‡',", s)
+	s = fmt.Sprintf("%s `avg_alternating_power` float(8,1) NOT NULL DEFAULT '0.0' COMMENT 'å½“æ—¥æˆªæ­¢åˆ°ç›®å‰çš„æœ‰æ•ˆäº¤æµå¹³å‡åŠŸç‡',", s)
+	s = fmt.Sprintf("%s `avg_efficiency` float(4,3) NOT NULL DEFAULT '0.000' COMMENT 'å½“æ—¥æˆªæ­¢åˆ°ç›®å‰çš„é€†å˜å™¨å¹³å‡æ•ˆç‡')", s)
+	s = fmt.Sprintf("%s ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='%då¹´æ‰€æœ‰é€†å˜å™¨æ¯æ—¥æ•°æ®ç»Ÿè®¡è¡¨';", s, year)
 	//fmt.Println("s=", s)
 
 	o := orm.NewOrm()
 	_, err := o.Raw(s).Exec()
 	if err == nil {
-	    fmt.Println("Create %s table SUCCESS!", tableName)
-	    utils.WriteDebugLog("Create %s table ...... DONE", tableName)
+		fmt.Println("Create %s table SUCCESS!", tableName)
+		utils.WriteDebugLog("Create %s table ...... DONE", tableName)
 	} else {
 		fmt.Printf("Create err=%v\n", err)
 		fmt.Println("Create table ERROR!")
 		utils.WriteErrorLog("Create %s table ...... ERROR", tableName)
-	}	
-	
+	}
+
 }
 
 func DoInsertDayTableRecordBySQL(r *PvInverterDayData) {
@@ -210,20 +209,20 @@ func DoInsertDayTableRecordBySQL(r *PvInverterDayData) {
 	o := orm.NewOrm()
 	res, err := o.Raw(s).Exec()
 	if err == nil {
-	    num, _ := res.RowsAffected()
-	    fmt.Println("mysql row affected nums: ", num)
-	    utils.WriteDebugLog("Insert a record to %s table ...... DONE", tableName)
+		num, _ := res.RowsAffected()
+		fmt.Println("mysql row affected nums: ", num)
+		utils.WriteDebugLog("Insert a record to %s table ...... DONE", tableName)
 	} else {
 		fmt.Printf("err=%v\n", err)
 		fmt.Println("mysql insert data have an ERROR!")
 		utils.WriteErrorLog("Insert a record to %s table ...... ERROR", tableName)
-	}	
+	}
 }
 
 func InsertDayTableItemBySQL(r *PvInverterDayData) {
 	// first, try to create the table
 	CreateDayTableBySQL(r.Day)
-	
+
 	// second: generate the INSERT SQL sentence
 	DoInsertDayTableRecordBySQL(r)
 
@@ -251,7 +250,7 @@ func DoUpdateDayTableItemBySQL(r *PvInverterDayData) error {
 	o := orm.NewOrm()
 	_, err := o.Raw(s).Exec()
 	if err == nil {
-	    utils.WriteDebugLog("Update record(ivt_id=%d & day=%v) in table %s  ...... DONE", r.IvtId, r.Day, tableName)
+		utils.WriteDebugLog("Update record(ivt_id=%d & day=%v) in table %s  ...... DONE", r.IvtId, r.Day, tableName)
 	} else {
 		utils.WriteErrorLog("Update record(ivt_id=%d & day=%v) in table %s  ...... ERROR", r.IvtId, r.Day, tableName)
 	}
@@ -277,7 +276,7 @@ func UpdateDayTableRecordBySQL(r *PvInverterDayData) {
 	}
 }
 
-func SelectDayTableRecordBySQL(r *PvInverterDayData) error{
+func SelectDayTableRecordBySQL(r *PvInverterDayData) error {
 	tableName := getDayTableName(r.Day)
 
 	s := fmt.Sprintf("SELECT * FROM `%s`", tableName)
@@ -298,5 +297,5 @@ func SelectDayTableRecordBySQL(r *PvInverterDayData) error{
 
 // for solarzoom API
 func UpdateDayTableRecordWith() {
-	
+
 }
