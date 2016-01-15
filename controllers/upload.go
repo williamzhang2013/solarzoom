@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"io"
 	"os"
+	"solarzoom/utils"
 )
 
 type UploadController struct {
@@ -12,16 +13,20 @@ type UploadController struct {
 }
 
 func (c *UploadController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Page"] = "Upload Page"
-	c.TplNames = "device_update.html"
-	// curtime := time.Now().Unix()
-	// h := md5.New()
-	// io.WriteString(h, strconv.FormatInt(curtime, 10))
-	// token := fmt.Sprintf("%x", h.Sum(nil))
+	ip := utils.GetLocalIP()
 
-	// t, _ := template.ParseFiles("upload.gtpl")
-	// t.Execute(w, token)
+	if supportHttps, _ := beego.AppConfig.Bool("EnableHttpTLS"); supportHttps {
+		port, _ := beego.AppConfig.Int("HttpsPort")
+		c.Data["protocol"] = "https"
+		c.Data["port"] = port
+	} else {
+		port, _ := beego.AppConfig.Int("httpport")
+		c.Data["protocol"] = "http"
+		c.Data["port"] = port
+	}
+
+	c.Data["localIP"] = ip
+	c.TplNames = "device_update.html"
 }
 
 func (u *UploadController) Post() {

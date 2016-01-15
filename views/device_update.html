@@ -13,7 +13,7 @@
     </head>
 
     <body>
-    <form enctype="multipart/form-data" action="https://127.0.0.1:8888/upload" method="post">
+    <form enctype="multipart/form-data" action="{{.protocol}}://{{.localIP}}:{{.port}}/upload" method="post">
        <div id="" align="center" style="margin-top: 120px; height: 70%; width: 80%; margin-right: auto; margin-left: auto; display:block">
           <table bgcolor="#f5f5f5" width="50%" height="250px" border="1" bordercolor="#c0c0c0" cellspacing="0">
              <tbody align="center">
