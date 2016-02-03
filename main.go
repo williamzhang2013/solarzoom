@@ -19,9 +19,9 @@ func main() {
 
 	beego.SessionOn = true
 	beego.SessionProvider = "memory"
-	beego.SessionGCMaxLifetime = 3600 //60 seconds
+	beego.SessionGCMaxLifetime = 3600 * 24 //60 seconds
 	beego.SessionName = "session_solarzoom"
-	beego.SessionCookieLifeTime = 3600 //60 seconds
+	beego.SessionCookieLifeTime = 3600 * 24 //60 seconds
 	beego.SessionAutoSetCookie = true
 	beego.SessionSavePath = "/"
 

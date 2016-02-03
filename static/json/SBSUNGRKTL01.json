@@ -1,8 +1,7 @@
 {	"StyleCode":["SB","SUNGR","KTL01"],
-	"StyleVersion":"V01.03.3",
+	"StyleVersion":"V01.03.4",
 	"CreateDate":"2015.11.11",
 
-	"DVCSN_Len":20,
 	"Probe":{
 		"Command":{
 			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
@@ -18,6 +17,26 @@
 			"ExpectedData":[0,207],
 			"SNPointer_Len":null,
 			"SN_Len":null,
+			"FailChkPointer_Len":null,
+			"FailChkData_Len":null,
+			"FailChkData":null
+		}
+	},
+	"ReadSN":{
+		"Command":{
+			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
+			"DAddr_Len":1,
+			"_FunctionCode":[4],
+			"_ReadAddr":[19,125],
+			"_RdRegNmbr":[0,10]
+			},
+		"Response":{
+			"Response_Len":25,
+			"ExpectedDataPointer_Len":null,
+			"ExpectedData_Len":null,
+			"ExpectedData":null,
+			"SNPointer_Len":3,
+			"SN_Len":20,
 			"FailChkPointer_Len":null,
 			"FailChkData_Len":null,
 			"FailChkData":null
@@ -87,26 +106,6 @@
 			"FailChkData":null			
 			}
 		},
-	"_ReadSN":{
-		"Command":{
-			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
-			"DAddr_Len":1,
-			"_FunctionCode":[4],
-			"_ReadAddr":[19,125],
-			"_RdRegNmbr":[0,10]
-			},
-		"Response":{
-			"Response_Len":25,
-			"ExpectedDataPointer_Len":null,
-			"ExpectedData_Len":null,
-			"ExpectedData":null,
-			"SNPointer_Len":3,
-			"SN_Len":20,
-			"FailChkPointer_Len":null,
-			"FailChkData_Len":null,
-			"FailChkData":null
-		}
-	},
 	"_ReadDataCommand":{	
 		"Command":{
 			"CodeOrder":["DAddr_Len","_FunctionCode","_ReadAddr","_RdRegNmbr","CRCL","CRCH"],
@@ -137,11 +136,6 @@
 			"CmdOrder":["_SetSystemTime"],
 			"RsltOrder":null,
 			"RecycleTime":14400
-			},
-		{	"CmdRsltTblName":"READSN",
-			"CmdOrder":["_ReadSN"],
-			"RsltOrder":null,
-			"RecycleTime":600
 		}
 	]
 }

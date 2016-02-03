@@ -1,9 +1,9 @@
 {	"StyleCode":["SB","TRNGY","SP001"],
-	"StyleVersion":"V01.03.3",
+	"StyleVersion":"V01.03.4",
 	"CreateDate":"2015.10.20",
 
-	"DVCSN_Len":16,
 	"Probe":null,
+	"ReadSN":null,
 	"OfflineQuery":{
 		"Command":{
 			"CodeOrder":["_Head","_GWAddr","_OffLineAddr","_FunctionCode","_DataLen","ChkSumH","ChkSumL"],
