@@ -538,78 +538,61 @@ func genIvtRunDataDBItem(item *models.PvInverterRunData, fname string, dataMap m
 
 func handleDataRequest(ctrl *DataController) {
 	data := ctrl.GetString("data")
-	fmt.Println("data=", data)
 
-	//var s []byte = []byte(sData)
-	var s []byte = []byte(data)
-
-	utils.WriteDebugLog("Handle Data: data=%v", data)
-	stylecode := utils.PeekStyleCode(s)
-	fmt.Printf("stylecode=%v\n", stylecode)
-	fname := FILE_STYLE_PATH + "SD" + stylecode[1] + stylecode[2] + ".json"
-	_, err := ioutil.ReadFile(fname)
-	if err != nil {
-		fmt.Println("ReadJSONFile:", err.Error())
-	} else {
-		fmt.Println("ReadJSONFile SUCCESS!")
-	}
-
-	item := models.NewPvInverterRunData()
-	dataMap := utils.HandleSDData(fname, s)
-	genIvtRunDataDBItem(item, fname, dataMap)
-
-	// get the inverter sn
-	sn := getInverterSN(dataMap)
-	if len(sn) != 0 {
-		item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
-	}
-
-	// _, err = models.AddInverterRunData(item)
-	// if err != nil {
-	// 	beego.Error("write database User error!")
-	// }
-
-	// write day table
-	// var dayTableId int64
-	// var dayTableErr error
-
-	// if dayTableId, dayTableErr = models.GetPvInverterTodayRecord(item.IvtId); dayTableErr != nil {
-	// 	// update
-	// 	models.AddPvInverterDayData(item.IvtId)
-	// }
-	// hisPower, _ := models.GetPVInverterTodayHisPower(item.IvtId)
-	// thisPower := fmt.Sprintf("#%v:%v:%v", item.BatchOrder, item.SmplTime, item.DcpowerTotal)
-	// hisPower = hisPower + thisPower
-	// //fmt.Printf("id=%v, power=%v, enertytotal=%v, energyday=%v, content=%v\n", dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, hisPower)
-	// if err := models.UpdatePvInverterTodayRecord(dayTableId, item.AcActivePowerTotal, item.EnergyTotal, item.EnergyDay, 0, hisPower); err != nil {
-	// 	fmt.Println("Something wrong!", err.Error())
-
-	// }
-
-	dayRecord := models.NewPvInverterDayData()
-	dayRecord.IvtId = item.IvtId
-	dayRecord.Day = models.CalcDayTableDayItem(item.SmplTime)
-	dayRecord.AcActivePowerTotal = item.AcActivePowerTotal
-	dayRecord.EnergyTotal = item.EnergyTotal
-	dayRecord.EnergyToday = item.EnergyDay
-	dayRecord.PowerContent, _ = models.GetPowerContentInDayTable(dayRecord)
-	//fmt.Println("1 --- dayRecord.PowerContent=", dayRecord.PowerContent)
-
-	dayRecord.PowerContent = fmt.Sprintf("%s#%v:%v:%v", dayRecord.PowerContent, item.BatchOrder, item.SmplTime, item.DcpowerTotal)
-
-	//fmt.Println("2 --- dayRecord.PowerContent=", dayRecord.PowerContent)
-	// careate the new table
-	// item.TableName()
-	//models.CreateDayTableBySQL()
-	//models.InsertDayTableItemBySQL()
-	models.InsertRunDataTableItemBySQL(item)
-	models.UpdateDayTableRecordBySQL(dayRecord)
-
+	// send back the json file
 	ctrl.Data["command1"] = "cmd"
 	ctrl.Data["value1"] = "data"
 	ctrl.Data["command2"] = "errcode"
-	ctrl.Data["value2"] = 0
+	ctrl.Data["value2"] = 2
 	ctrl.TplNames = "cmd2.tpl"
+
+	if data != "" {
+		//var s []byte = []byte(sData)
+		var s []byte = []byte(data)
+
+		fmt.Println("data=", data)
+		utils.WriteDebugLog("Handle Data: data=%v", data)
+		stylecode := utils.PeekStyleCode(s)
+		fmt.Printf("stylecode=%v\n", stylecode)
+		fname := FILE_STYLE_PATH + "SD" + stylecode[1] + stylecode[2] + ".json"
+		_, err := ioutil.ReadFile(fname)
+		if err != nil {
+			fmt.Println("ReadJSONFile:", err.Error())
+		} else {
+			fmt.Println("ReadJSONFile SUCCESS!")
+		}
+
+		item := models.NewPvInverterRunData()
+		dataMap := utils.HandleSDData(fname, s)
+		genIvtRunDataDBItem(item, fname, dataMap)
+
+		// get the inverter sn
+		sn := getInverterSN(dataMap)
+		if len(sn) != 0 {
+			item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
+		}
+
+		dayRecord := models.NewPvInverterDayData()
+		dayRecord.IvtId = item.IvtId
+		dayRecord.Day = models.CalcDayTableDayItem(item.SmplTime)
+		dayRecord.AcActivePowerTotal = item.AcActivePowerTotal
+		dayRecord.EnergyTotal = item.EnergyTotal
+		dayRecord.EnergyToday = item.EnergyDay
+		dayRecord.PowerContent, _ = models.GetPowerContentInDayTable(dayRecord)
+		//fmt.Println("1 --- dayRecord.PowerContent=", dayRecord.PowerContent)
+
+		dayRecord.PowerContent = fmt.Sprintf("%s#%v:%v:%v", dayRecord.PowerContent, item.BatchOrder, item.SmplTime, item.DcpowerTotal)
+
+		//fmt.Println("2 --- dayRecord.PowerContent=", dayRecord.PowerContent)
+		// careate the new table
+		// item.TableName()
+		//models.CreateDayTableBySQL()
+		//models.InsertDayTableItemBySQL()
+		models.InsertRunDataTableItemBySQL(item)
+		models.UpdateDayTableRecordBySQL(dayRecord)
+
+		ctrl.Data["value2"] = 2
+	}
 }
 
 func (ctrl *DataController) Get() {
