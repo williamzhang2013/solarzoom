@@ -133,8 +133,13 @@ func (ctrl *ConfigController) Get() {
 
 	if state != "ok" {
 		// redirect auth
-		utils.WriteDebugLog("Config: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Config: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		handleConfigRequest(ctrl)
 	}
@@ -149,8 +154,13 @@ func (ctrl *ConfigController) Post() {
 	//fmt.Println("auth state=", state)
 
 	if state != "ok" {
-		utils.WriteDebugLog("Config: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Config: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		handleConfigRequest(ctrl)
 	}
@@ -164,8 +174,13 @@ func (ctrl *ConfigController) SyncTime() {
 	fmt.Println("auth state=", state)
 
 	if state != "ok" {
-		utils.WriteDebugLog("Config: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Config: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		fmt.Println("SyncTime")
 		utils.WriteDebugLog("SyncTime")
@@ -188,8 +203,13 @@ func (ctrl *ConfigController) GetIVTTable() {
 	//fmt.Println("auth state=", state)
 
 	if state != "ok" {
-		utils.WriteDebugLog("Config: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Config: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		fmt.Println("Get Inverter Config File!")
 

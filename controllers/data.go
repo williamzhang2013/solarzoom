@@ -572,16 +572,18 @@ func handleDataRequest(ctrl *DataController) {
 			item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
 		}
 
-		dayRecord := models.NewPvInverterDayData()
-		dayRecord.IvtId = item.IvtId
-		dayRecord.Day = models.CalcDayTableDayItem(item.SmplTime)
-		dayRecord.AcActivePowerTotal = item.AcActivePowerTotal
-		dayRecord.EnergyTotal = item.EnergyTotal
-		dayRecord.EnergyToday = item.EnergyDay
-		dayRecord.PowerContent, _ = models.GetPowerContentInDayTable(dayRecord)
-		//fmt.Println("1 --- dayRecord.PowerContent=", dayRecord.PowerContent)
+		// calculate the day data & update it transfer to Solarzoom
+		// so comment the code
+		// dayRecord := models.NewPvInverterDayData()
+		// dayRecord.IvtId = item.IvtId
+		// dayRecord.Day = models.CalcDayTableDayItem(item.SmplTime)
+		// dayRecord.AcActivePowerTotal = item.AcActivePowerTotal
+		// dayRecord.EnergyTotal = item.EnergyTotal
+		// dayRecord.EnergyToday = item.EnergyDay
+		// dayRecord.PowerContent, _ = models.GetPowerContentInDayTable(dayRecord)
+		// //fmt.Println("1 --- dayRecord.PowerContent=", dayRecord.PowerContent)
 
-		dayRecord.PowerContent = fmt.Sprintf("%s#%v:%v:%v", dayRecord.PowerContent, item.BatchOrder, item.SmplTime, item.DcpowerTotal)
+		// dayRecord.PowerContent = fmt.Sprintf("%s#%v:%v:%v", dayRecord.PowerContent, item.BatchOrder, item.SmplTime, item.DcpowerTotal)
 
 		//fmt.Println("2 --- dayRecord.PowerContent=", dayRecord.PowerContent)
 		// careate the new table
@@ -589,9 +591,9 @@ func handleDataRequest(ctrl *DataController) {
 		//models.CreateDayTableBySQL()
 		//models.InsertDayTableItemBySQL()
 		models.InsertRunDataTableItemBySQL(item)
-		models.UpdateDayTableRecordBySQL(dayRecord)
+		// models.UpdateDayTableRecordBySQL(dayRecord)
 
-		ctrl.Data["value2"] = 2
+		ctrl.Data["value2"] = 0
 	}
 }
 
@@ -603,8 +605,13 @@ func (ctrl *DataController) Get() {
 	//state = "ok"
 	utils.WriteDebugLog("/gw/data GET request")
 	if state != "ok" {
-		utils.WriteDebugLog("Data: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Data: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		handleDataRequest(ctrl)
 	}
@@ -618,8 +625,13 @@ func (ctrl *DataController) Post() {
 	//state := utils.GetSolarMapItem(utils.SessAuth)
 	utils.WriteDebugLog("/gw/data POST request")
 	if state != "ok" {
-		utils.WriteDebugLog("Data: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Data: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		handleDataRequest(ctrl)
 	}
@@ -637,8 +649,13 @@ func (ctrl *DataController) Command() {
 	gwsn := ctrl.GetString("cmd")
 	//fmt.Println("gwsn=", gwsn)
 	if state != "ok" {
-		utils.WriteDebugLog("Data: Redirect AUTH")
-		ctrl.Redirect(URLAuth, 302)
+		utils.WriteDebugLog("Data: AUTH ERROR!")
+		//ctrl.Redirect(URLAuth, 302)
+		ctrl.Data["command1"] = "cmd"
+		ctrl.Data["value1"] = "data"
+		ctrl.Data["command2"] = "errcode"
+		ctrl.Data["value2"] = 3
+		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		fmt.Println("Command")
 		//fmt.Println("content:=", models.SerialCommands(gwsn))
