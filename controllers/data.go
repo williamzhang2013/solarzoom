@@ -8,6 +8,7 @@ import (
 	"solarzoom/utils"
 	"strconv"
 	"strings"
+	"time"
 	//"solarzoom/utils/simplejson"
 )
 
@@ -47,8 +48,12 @@ func setBatchOrder(m *models.PvInverterRunData, dataMap map[string]interface{}) 
 }
 
 func setSampleTime(m *models.PvInverterRunData, dataMap map[string]interface{}) {
-	if time, ok := dataMap["SmplTime"].(uint64); ok {
-		m.SmplTime = int64(time)
+	if sTime, ok := dataMap["SmplTime"].(uint64); ok {
+		m.SmplTime = int64(sTime)
+
+		hour, min, _ := time.Unix(m.SmplTime, 0).Clock()
+		m.BatchOrder = int32(hour*12 + min/5 + 1)
+		//fmt.Printf("SampleTime ---> BatchOrder:hour=%d, min=%d, batchOrder=%d\n", hour, min, m.BatchOrder)
 	}
 }
 
@@ -486,7 +491,7 @@ func getErrorMessage(m *models.PvInverterRunData, fname string, dataMap map[stri
 
 ///////////////////////////////////////////////////////////////////////////////
 func genIvtRunDataDBItem(item *models.PvInverterRunData, fname string, dataMap map[string]interface{}) {
-	setBatchOrder(item, dataMap)
+	//setBatchOrder(item, dataMap)
 	setSampleTime(item, dataMap)
 
 	setWorkStatus(item, fname, dataMap)
@@ -592,6 +597,17 @@ func handleDataRequest(ctrl *DataController) {
 		//models.InsertDayTableItemBySQL()
 		models.InsertRunDataTableItemBySQL(item)
 		// models.UpdateDayTableRecordBySQL(dayRecord)
+
+		//item.WorkStatus = "Error"
+		// check the workstatus
+		if item.WorkStatus != "Normal" && item.WorkStatus != STR_FAULT {
+			// write the fault table
+			fault := models.NewPvInverterFaultData()
+			fault.IvtId = item.IvtId
+			fault.FaultMessage = getErrorMessage(item, fname, dataMap)
+
+			models.InsertFaultTableItemBySQL(fault)
+		}
 
 		ctrl.Data["value2"] = 0
 	}
