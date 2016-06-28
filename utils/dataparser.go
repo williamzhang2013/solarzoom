@@ -182,7 +182,12 @@ func genCalcPara(oper string, orig []interface{}) interface{} {
 		length := len(orig)
 		para := make([]uint64, length)
 		for i, v := range orig {
-			para[i], _ = v.(uint64)
+			//var ok bool
+			//fmt.Printf("CMD_HL: v[%d]=%v", i, v)
+			if tmpVal, ok := v.(float64); ok {
+				para[i] = uint64(tmpVal)
+				//fmt.Println("para is float64 type")
+			}
 		}
 		return para
 	case ucmd.FNAME_SUM:

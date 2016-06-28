@@ -34,7 +34,7 @@ const DAY_TABLE_PREFIX string = "pv_inverter_day_data_"
 ///////////////////////////////////////////////////////////////////////////////
 func init() {
 	fmt.Println("register PvInverterDayData table")
-	//orm.RegisterModel(new(PvInverterDayData))
+	orm.RegisterModel(new(PvInverterDayData))
 
 	// fmt.Printf("current seconds is:%v\n", time.Now().Unix())
 	// fmt.Printf("today seconds is:%v\n", GetCurrentDay())
