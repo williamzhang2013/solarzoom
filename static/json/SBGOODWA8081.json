@@ -1,5 +1,5 @@
 {	"StyleCode":["SB","GOODW","A8081"],
-	"StyleVersion":"V01.03.4",
+	"StyleVersion":"V01.03.5",
 	"CreateDate":"2015.09.24",
 
 	"Probe":{
@@ -228,7 +228,7 @@
 		{	"CmdRsltTblName":"GW001",
 			"CmdOrder":["_ReadDataCommandA"],
 			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
-			"RecycleTime":300
+			"RecycleTime":301
 			},
 		{	"CmdRsltTblName":"TRPuls",
 			"CmdOrder":["_SetSaftyCountry"],
