@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"strconv"
+	"time"
 	//"math"
 )
 
@@ -63,30 +64,58 @@ func DeleteSolarMapItem(k string) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+func getToday() (year, month, day int) {
+	t := time.Now()
+	year = t.Year()
+	month = int(t.Month())
+	day = t.Day()
+
+	return
+}
+
+func getLogFileName() (fname string) {
+	year, month, day := getToday()
+	fname = fmt.Sprintf("./logs/solar%d%02d%02d.log", year, month, day)
+
+	return
+}
+
 func WriteCriticalLog(format string, v ...interface{}) {
 	log := logs.NewLogger(10000)
-	log.SetLogger("file", `{"filename":"solar.log"}`)
+	fname := getLogFileName()
+	sfile := fmt.Sprintf("{\"filename\":\"%s\"}", fname)
+	log.SetLogger("file", sfile)	
+	//log.SetLogger("file", `{"filename":"solar.log"}`)
 
 	log.Critical(format, v...)
 }
 
 func WriteErrorLog(format string, v ...interface{}) {
 	log := logs.NewLogger(10000)
-	log.SetLogger("file", `{"filename":"solar.log"}`)
+	fname := getLogFileName()
+	sfile := fmt.Sprintf("{\"filename\":\"%s\"}", fname)
+	log.SetLogger("file", sfile)	
+	//log.SetLogger("file", `{"filename":"solar.log"}`)
 
 	log.Error(format, v...)
 }
 
 func WriteDebugLog(format string, v ...interface{}) {
 	log := logs.NewLogger(10000)
-	log.SetLogger("file", `{"filename":"solar.log"}`)
+	fname := getLogFileName()
+	sfile := fmt.Sprintf("{\"filename\":\"%s\"}", fname)
+	log.SetLogger("file", sfile)	
+	//log.SetLogger("file", `{"filename":"solar.log"}`)
 
 	log.Debug(format, v...)
 }
 
 func WriteInfoLog(format string, v ...interface{}) {
 	log := logs.NewLogger(10000)
-	log.SetLogger("file", `{"filename":"solar.log"}`)
+	fname := getLogFileName()
+	sfile := fmt.Sprintf("{\"filename\":\"%s\"}", fname)
+	log.SetLogger("file", sfile)	
+	//log.SetLogger("file", `{"filename":"solar.log"}`)
 
 	log.Info(format, v...)
 }

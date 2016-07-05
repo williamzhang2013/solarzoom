@@ -1,0 +1,25 @@
+2016/07/05 11:20:36 [D] Create pv_inverter_run_data_201607 table ...... DONE
+2016/07/05 11:20:39 [D] Create pv_inverter_run_data_201607 table ...... DONE
+2016/07/05 11:20:42 [D] Create pv_inverter_run_data_201607 table ...... DONE
+2016/07/05 11:21:22 [D] /gw/data GET request
+2016/07/05 11:21:22 [D] Handle Data: data=1
+2016/07/05 11:22:47 [D] Create pv_inverter_run_data_201607 table ...... DONE
+2016/07/05 11:22:49 [D] /gw/data GET request
+2016/07/05 11:22:49 [D] Handle Data: data=1
+2016/07/05 11:22:49 [D] Parse Data: ivt_id=1, batch_order=203, smpl_time=1467017686, 
+2016/07/05 11:22:49 [D]             input_time=0, work_status=Normal, run_time_total=45, 
+2016/07/05 11:22:49 [D]             energy_total=259, energy_day=74.3, internal_temperature=35.1, 
+2016/07/05 11:22:49 [D]             vdc_pv1=658.6, idc_pv1=0.8, dcpower_pv1=526.88, 
+2016/07/05 11:22:49 [D]             vdc_pv2=660.3, idc_pv2=0.7, dcpower_pv2=462.21, 
+2016/07/05 11:22:49 [D]             vdc_pv3=659.4, idc_pv3=0.7, dcpower_pv3=461.58, 
+2016/07/05 11:22:49 [D]             vdc_pv4=659.6, idc_pv4=0.7, dcpower_pv4=461.72, 
+2016/07/05 11:22:49 [D]             pv1_resistor=0, pv2_resistor=0, pv3_resistor=0, pv4_resistor=0, 
+2016/07/05 11:22:49 [D]             aver_vdc_pv=659.48, idc_total=2.9, dcpower_total=1910, 
+2016/07/05 11:22:49 [D]             vac_r=237.6, iac_r=4.1, acpower_r=0, fac_r=0 
+2016/07/05 11:22:49 [D]             vac_s=237.6, iac_s=4.2, acpower_s=0, fac_s=0 
+2016/07/05 11:22:49 [D]             vac_t=236.8, iac_t=4.9, acpower_t=0, fac_t=0 
+2016/07/05 11:22:49 [D]             aver_vac=237.33, ac_active_power_total=1863, iac_total=7.85, 
+2016/07/05 11:22:49 [D]             vac_balance=0, iac_balance=0.14, 
+2016/07/05 11:22:49 [D]             fgrid=49.900000000000006, efficiency=97.5, simu_kwh5_min=0.16
+2016/07/05 11:22:49 [D] Create pv_inverter_run_data_201606 table ...... DONE
+2016/07/05 11:22:49 [D] Insert a record to pv_inverter_run_data_201606 table ...... DONE

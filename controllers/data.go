@@ -576,7 +576,23 @@ func handleDataRequest(ctrl *DataController) {
 		sn := getInverterSN(dataMap)
 		if len(sn) != 0 {
 			item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
-		}
+			//fmt.Println("item.IvtId=", item.IvtId)
+		}	
+		utils.WriteDebugLog("Parse Data: ivt_id=%v, batch_order=%v, smpl_time=%v, ", item.IvtId, item.BatchOrder, item.SmplTime)
+		utils.WriteDebugLog("            input_time=%v, work_status=%v, run_time_total=%v, ", item.InputTime, item.WorkStatus, item.RunTimeTotal)
+		utils.WriteDebugLog("            energy_total=%v, energy_day=%v, internal_temperature=%v, ", item.EnergyTotal, item.EnergyDay, item.InternalTemperature)
+		utils.WriteDebugLog("            vdc_pv1=%v, idc_pv1=%v, dcpower_pv1=%v, ", item.VdcPv1, item.IdcPv1, item.DcpowerPv1)
+		utils.WriteDebugLog("            vdc_pv2=%v, idc_pv2=%v, dcpower_pv2=%v, ", item.VdcPv2, item.IdcPv2, item.DcpowerPv2)
+		utils.WriteDebugLog("            vdc_pv3=%v, idc_pv3=%v, dcpower_pv3=%v, ", item.VdcPv3, item.IdcPv3, item.DcpowerPv3)
+		utils.WriteDebugLog("            vdc_pv4=%v, idc_pv4=%v, dcpower_pv4=%v, ", item.VdcPv4, item.IdcPv4, item.DcpowerPv4)
+		utils.WriteDebugLog("            pv1_resistor=%v, pv2_resistor=%v, pv3_resistor=%v, pv4_resistor=%v, ", item.Pv1Resistor, item.Pv2Resistor, item.Pv3Resistor, item.Pv4Resistor)
+		utils.WriteDebugLog("            aver_vdc_pv=%v, idc_total=%v, dcpower_total=%v, ", item.AverVdcPv, item.IdcTotal, item.DcpowerTotal)
+		utils.WriteDebugLog("            vac_r=%v, iac_r=%v, acpower_r=%v, fac_r=%v ", item.VacR, item.IacR, item.AcpowerR, item.FacR)
+		utils.WriteDebugLog("            vac_s=%v, iac_s=%v, acpower_s=%v, fac_s=%v ", item.VacS, item.IacS, item.AcpowerS, item.FacS)
+		utils.WriteDebugLog("            vac_t=%v, iac_t=%v, acpower_t=%v, fac_t=%v ", item.VacT, item.IacT, item.AcpowerT, item.FacT)
+		utils.WriteDebugLog("            aver_vac=%v, ac_active_power_total=%v, iac_total=%v, ", item.AverVac, item.AcActivePowerTotal, item.IacTotal)
+		utils.WriteDebugLog("            vac_balance=%v, iac_balance=%v, ", item.VacBalance, item.IacBalance)
+		utils.WriteDebugLog("            fgrid=%v, efficiency=%v, simu_kwh5_min=%v", item.Fgrid, item.Efficiency, item.SimuKwh5Min)
 
 		// calculate the day data & update it transfer to Solarzoom
 		// so comment the code
