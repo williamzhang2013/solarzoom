@@ -617,7 +617,8 @@ func handleDataRequest(ctrl *DataController) {
 
 		//item.WorkStatus = "Error"
 		// check the workstatus
-		if item.WorkStatus != "Normal" && item.WorkStatus != STR_FAULT {
+		//fmt.Println("workstatus=", item.WorkStatus)
+		if item.WorkStatus == STR_FAULT {
 			// write the fault table
 			fault := models.NewPvInverterFaultData()
 			fault.IvtId = item.IvtId

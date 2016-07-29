@@ -151,7 +151,23 @@
 	"_Default15872":{
 		"Function":"GetDefault",
 		"Default":15872
-		},							
+		},	
+	"_Default5376":{
+		"Function":"GetDefault",
+		"Default":5376
+		},	
+	"_Default21760":{
+		"Function":"GetDefault",
+		"Default":21760
+		},
+	"_Default33024":{
+		"Function":"GetDefault",
+		"Default":33024
+		},	
+	"_Default37120":{
+		"Function":"GetDefault",
+		"Default":37120
+		},									
 	"_DefaultNil":{
 		"Function":"GetDefault",
 		"Default":""
@@ -194,23 +210,39 @@
 		"Function":"Equal",
 		"Items":["_WorkStatus", "_Default262144", "_DefaultOff", "_DefaultNil"]
 		},
-	"_FailCheck":{
+	"_FailCheckA":{
 		"Function":"Equal",
 		"Items":["_WorkStatus", "_Default15872", "_DefaultFault", "_DefaultNil"]
-		},		
+		},	
+	"_FailCheckB":{
+		"Function":"Equal",
+		"Items":["_DeviceStatus", "_Default5376", "_DefaultFault", "_DefaultNil"]
+		},	
+	"_FailCheckC":{
+		"Function":"Equal",
+		"Items":["_DeviceStatus", "_Default21760", "_DefaultFault", "_DefaultNil"]
+		},	
+	"_FailCheckD":{
+		"Function":"Equal",
+		"Items":["_DeviceStatus", "_Default33024", "_DefaultFault", "_DefaultNil"]
+		},	
+	"_FailCheckE":{
+		"Function":"Equal",
+		"Items":["_DeviceStatus", "_Default37120", "_DefaultFault", "_DefaultNil"]
+		},										
 	"WorkStatus":{
 		"Function":"NVStrCat",
-		"Items":["_OffLineCheckA", "_OffLineCheckB", "_FailCheck"]
+		"Items":["_OffLineCheckA", "_OffLineCheckB", "_FailCheckA", "_FailCheckB", "_FailCheckC", "_FailCheckD", "_FailCheckE"]
 		},
-	"_ErroMessage":{
+	"ErrorMessage":{
 		"Function":"NVStrCat",
-		"Items":["_OutputStyle","_DeviceStatus","_StatusDateTime","_StatusData","_ErroMSG","_ModuleTemperature","_ToGroundImpedence","_Leakage","_WorkStatus"]
+		"Items":["_ErroMSG"]
 		},
-	"ErroMessage":{
+	"_ErrorMessage":{
 		"Function":"Equal",
-		"Items":["_WorkStatus", "_Default15872", "_ErroMessage", "_DefaultNil"]
-		},	
-
+		"Items":["_WorkStatus", "_Default15872", "__ErroMessage", "_DefaultNil"],
+		"ItemsB":["_OutputStyle","_DeviceStatus","_StatusDateTime","_StatusData","_ErroMSG","_ModuleTemperature","_ToGroundImpedence","_Leakage","_WorkStatus"]
+		},
 	"VacR":{
 		"Function":"Multiply",
 		"Items":["_VacA","_VacRate"],
