@@ -51,7 +51,13 @@ func GetIvtIdByGWInfo(sn, addr string) (id int64, err error) {
 
 func GetIvtIdByIvtSN(sn string) (id int64, err error) {
 	//name := GetBoxTableName(order)
-	var ivtsn []byte = make([]byte, strings.IndexByte(sn, 0))
+	fmt.Println("GetIvtIdByIvtSN:sn=",sn)
+	//fmt.Printf("GetIvtIdByIvtSN: sn length=%d, indexByte 0=%d\n", len(sn), strings.IndexByte(sn, 0))
+	var bytesLen = strings.IndexByte(sn, 0)
+	if bytesLen == -1 {
+		bytesLen = len(sn)
+	}
+	var ivtsn []byte = make([]byte, bytesLen)
 	for i, ch := range sn {
 		if ch != 0 {
 			ivtsn[i] = sn[i]
