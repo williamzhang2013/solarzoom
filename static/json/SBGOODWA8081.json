@@ -228,7 +228,7 @@
 		{	"CmdRsltTblName":"GW001",
 			"CmdOrder":["_ReadDataCommandA"],
 			"RsltOrder":["StyleVersion","StyleCode","CmdRsltTblName","GWSN","DVCSN","BatchOrder","SmplTime","DAddr","CmdData","CRCL","CRCH"],
-			"RecycleTime":301
+			"RecycleTime":300
 			},
 		{	"CmdRsltTblName":"TRPuls",
 			"CmdOrder":["_SetSaftyCountry"],

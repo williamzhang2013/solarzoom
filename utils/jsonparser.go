@@ -58,18 +58,18 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 			//fmt.Printf("%s=", v)
 			//cmdLength = getCmdLength(v)
 			cmdLength, cmdMode = getCmdInfo(v)
-			//fmt.Printf("length=%v, mode=%v", cmdLength, cmdMode)
+			//fmt.Printf("length=%v, mode=%v, ", cmdLength, cmdMode)
 			if cmdLength != 0 {
 				// logic command
 				if cmdMode == 0 {
 					// string
 					s := Byte2str(content[offset : offset+cmdLength*2])
-					//fmt.Println(v, "=", s)
+					//fmt.Printf("String: orig=%v, v=%s s=%s\n", content[offset : offset+cmdLength*2], v, s)
 					retMap[v] = s
 				} else {
 					// uint64
 					s := Byte2Uint(content[offset : offset+cmdLength*2])
-					//fmt.Println(v, "=", s)
+					//fmt.Printf("Number: orig=%v, v=%s, s=%v\n", content[offset : offset+cmdLength*2], v, s)
 					retMap[v] = s
 				}
 				offset += cmdLength * 2
@@ -91,12 +91,12 @@ func HandleSDData(fname string, content []byte) map[string]interface{} {
 				if cmdMode == 0 {
 					// string
 					s := Byte2str(content[offset : offset+cmdLength*2])
-					//fmt.Println(v, "=", s)
+					fmt.Println(v, "=", s)
 					retMap[v] = s
 				} else {
 					// uint64
 					s := Byte2Uint(content[offset : offset+cmdLength*2])
-					//fmt.Println(v, "=", s)
+					fmt.Println(v, "=", s)
 					retMap[v] = float64(s) * cmdUnit
 				}
 				offset += cmdLength * 2

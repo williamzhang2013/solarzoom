@@ -183,7 +183,7 @@ func (ctrl *ConfigController) SyncTime() {
 		ctrl.TplNames = "cmd2.tpl"
 	} else {
 		fmt.Println("SyncTime")
-		utils.WriteDebugLog("SyncTime")
+		utils.WriteDebugLog("SyncTime: mac=%s", ctrl.GetString("mac"))
 
 		curtime := time.Now().Unix()
 		ctrl.Data["command1"] = "cmd"
