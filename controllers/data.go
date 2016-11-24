@@ -582,7 +582,7 @@ func handleDataRequest(ctrl *DataController) {
 
 		// get the inverter sn
 		sn := getInverterSN(dataMap)
-		if len(sn) != 0 {
+		if len(sn) != 0 && sn[0] != 0 {
 			item.IvtId, _ = models.GetIvtIdByIvtSN(sn)
 			//fmt.Println("item.IvtId=", item.IvtId)
 		} else {
